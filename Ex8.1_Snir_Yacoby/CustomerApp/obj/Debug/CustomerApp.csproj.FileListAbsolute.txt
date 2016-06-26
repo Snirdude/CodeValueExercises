@@ -1,0 +1,12 @@
+c:\users\snir\documents\visual studio 2015\Projects\Ex7.1_Snir_Yacoby\CustomerApp\bin\Debug\CustomerApp.exe.config
+c:\users\snir\documents\visual studio 2015\Projects\Ex7.1_Snir_Yacoby\CustomerApp\bin\Debug\CustomerApp.exe
+c:\users\snir\documents\visual studio 2015\Projects\Ex7.1_Snir_Yacoby\CustomerApp\bin\Debug\CustomerApp.pdb
+c:\users\snir\documents\visual studio 2015\Projects\Ex7.1_Snir_Yacoby\CustomerApp\obj\Debug\CustomerApp.csprojResolveAssemblyReference.cache
+c:\users\snir\documents\visual studio 2015\Projects\Ex7.1_Snir_Yacoby\CustomerApp\obj\Debug\CustomerApp.exe
+c:\users\snir\documents\visual studio 2015\Projects\Ex7.1_Snir_Yacoby\CustomerApp\obj\Debug\CustomerApp.pdb
+C:\Users\Snir\Documents\Visual Studio 2015\Projects\Ex8.1_Snir_Yacoby\CustomerApp\bin\Debug\CustomerApp.exe.config
+C:\Users\Snir\Documents\Visual Studio 2015\Projects\Ex8.1_Snir_Yacoby\CustomerApp\obj\Debug\CustomerApp.exe
+C:\Users\Snir\Documents\Visual Studio 2015\Projects\Ex8.1_Snir_Yacoby\CustomerApp\obj\Debug\CustomerApp.pdb
+C:\Users\Snir\Documents\Visual Studio 2015\Projects\Ex8.1_Snir_Yacoby\CustomerApp\bin\Debug\CustomerApp.exe
+C:\Users\Snir\Documents\Visual Studio 2015\Projects\Ex8.1_Snir_Yacoby\CustomerApp\bin\Debug\CustomerApp.pdb
+C:\Users\Snir\Documents\Visual Studio 2015\Projects\Ex8.1_Snir_Yacoby\CustomerApp\obj\Debug\CustomerApp.csprojResolveAssemblyReference.cache
