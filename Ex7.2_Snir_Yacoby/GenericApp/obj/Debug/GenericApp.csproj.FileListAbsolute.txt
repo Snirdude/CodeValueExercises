@@ -4,3 +4,6 @@ c:\users\snir\documents\visual studio 2015\Projects\Ex7.2_Snir_Yacoby\GenericApp
 c:\users\snir\documents\visual studio 2015\Projects\Ex7.2_Snir_Yacoby\GenericApp\obj\Debug\GenericApp.csprojResolveAssemblyReference.cache
 c:\users\snir\documents\visual studio 2015\Projects\Ex7.2_Snir_Yacoby\GenericApp\obj\Debug\GenericApp.exe
 c:\users\snir\documents\visual studio 2015\Projects\Ex7.2_Snir_Yacoby\GenericApp\obj\Debug\GenericApp.pdb
+E:\Visual Projects\CodeValueExercises\Ex7.2_Snir_Yacoby\GenericApp\bin\Debug\GenericApp.exe.config
+E:\Visual Projects\CodeValueExercises\Ex7.2_Snir_Yacoby\GenericApp\obj\Debug\GenericApp.exe
+E:\Visual Projects\CodeValueExercises\Ex7.2_Snir_Yacoby\GenericApp\obj\Debug\GenericApp.pdb
