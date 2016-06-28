@@ -1,0 +1,5 @@
+c:\users\snir\documents\visual studio 2015\Projects\Ex2.3_Snir_Yacoby\GuessingGame\bin\Debug\GuessingGame.exe.config
+c:\users\snir\documents\visual studio 2015\Projects\Ex2.3_Snir_Yacoby\GuessingGame\bin\Debug\GuessingGame.exe
+c:\users\snir\documents\visual studio 2015\Projects\Ex2.3_Snir_Yacoby\GuessingGame\bin\Debug\GuessingGame.pdb
+c:\users\snir\documents\visual studio 2015\Projects\Ex2.3_Snir_Yacoby\GuessingGame\obj\Debug\GuessingGame.exe
+c:\users\snir\documents\visual studio 2015\Projects\Ex2.3_Snir_Yacoby\GuessingGame\obj\Debug\GuessingGame.pdb

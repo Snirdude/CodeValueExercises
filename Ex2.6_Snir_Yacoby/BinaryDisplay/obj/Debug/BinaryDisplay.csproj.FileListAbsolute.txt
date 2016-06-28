@@ -1,0 +1,6 @@
+c:\users\snir\documents\visual studio 2015\Projects\Ex2.6_Snir_Yacoby\BinaryDisplay\bin\Debug\BinaryDisplay.exe.config
+c:\users\snir\documents\visual studio 2015\Projects\Ex2.6_Snir_Yacoby\BinaryDisplay\bin\Debug\BinaryDisplay.exe
+c:\users\snir\documents\visual studio 2015\Projects\Ex2.6_Snir_Yacoby\BinaryDisplay\bin\Debug\BinaryDisplay.pdb
+c:\users\snir\documents\visual studio 2015\Projects\Ex2.6_Snir_Yacoby\BinaryDisplay\obj\Debug\BinaryDisplay.csprojResolveAssemblyReference.cache
+c:\users\snir\documents\visual studio 2015\Projects\Ex2.6_Snir_Yacoby\BinaryDisplay\obj\Debug\BinaryDisplay.exe
+c:\users\snir\documents\visual studio 2015\Projects\Ex2.6_Snir_Yacoby\BinaryDisplay\obj\Debug\BinaryDisplay.pdb

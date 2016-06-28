@@ -1,0 +1,5 @@
+c:\users\snir\documents\visual studio 2015\Projects\Ex2.7_Snir_Yacoby\DollarStairs\bin\Debug\DollarStairs.exe.config
+c:\users\snir\documents\visual studio 2015\Projects\Ex2.7_Snir_Yacoby\DollarStairs\bin\Debug\DollarStairs.exe
+c:\users\snir\documents\visual studio 2015\Projects\Ex2.7_Snir_Yacoby\DollarStairs\bin\Debug\DollarStairs.pdb
+c:\users\snir\documents\visual studio 2015\Projects\Ex2.7_Snir_Yacoby\DollarStairs\obj\Debug\DollarStairs.exe
+c:\users\snir\documents\visual studio 2015\Projects\Ex2.7_Snir_Yacoby\DollarStairs\obj\Debug\DollarStairs.pdb

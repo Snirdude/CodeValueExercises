@@ -1,0 +1,5 @@
+c:\users\snir\documents\visual studio 2015\Projects\Ex2.1_Snir_Yacoby\HelloPerson\bin\Debug\HelloPerson.exe.config
+c:\users\snir\documents\visual studio 2015\Projects\Ex2.1_Snir_Yacoby\HelloPerson\bin\Debug\HelloPerson.exe
+c:\users\snir\documents\visual studio 2015\Projects\Ex2.1_Snir_Yacoby\HelloPerson\bin\Debug\HelloPerson.pdb
+c:\users\snir\documents\visual studio 2015\Projects\Ex2.1_Snir_Yacoby\HelloPerson\obj\Debug\HelloPerson.exe
+c:\users\snir\documents\visual studio 2015\Projects\Ex2.1_Snir_Yacoby\HelloPerson\obj\Debug\HelloPerson.pdb
