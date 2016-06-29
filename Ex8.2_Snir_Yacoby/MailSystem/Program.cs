@@ -22,8 +22,8 @@ namespace MailSystem
 
         private static void Manager_MailArrived(object sender, MailArrivedEventArgs e)
         {
-            Console.WriteLine("Title: " + e.Title);
-            Console.WriteLine("Body: " + e.Body);
+            Console.WriteLine("Title: " + e?.Title);
+            Console.WriteLine("Body: " + e?.Body);
         }
     }
 }
