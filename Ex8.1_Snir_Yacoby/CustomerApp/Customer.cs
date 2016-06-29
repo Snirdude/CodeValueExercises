@@ -10,9 +10,9 @@ namespace CustomerApp
 
     class Customer : IComparable<Customer>, IEquatable<Customer>
     {
-        public string Name { get; set; }
-        public int Id { get; set; }
-        public string Address { get; set; }
+        public string Name { get; private set; }
+        public int Id { get; private set; }
+        public string Address { get; private set; }
 
         public Customer(string name, int id, string address)
         {
@@ -23,12 +23,12 @@ namespace CustomerApp
 
         public int CompareTo(Customer other)
         {
-            return string.Compare(Name, other.Name, true);
+            return string.Compare(Name, other?.Name, true);
         }
 
         public bool Equals(Customer other)
         {
-            return Name.Equals(other.Name) && Id.Equals(other.Id);
+            return Name.Equals(other?.Name) && Id.Equals(other?.Id);
         }
     }
 }

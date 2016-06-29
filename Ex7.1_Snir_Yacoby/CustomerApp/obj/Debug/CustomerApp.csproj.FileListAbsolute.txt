@@ -7,3 +7,6 @@ c:\users\snir\documents\visual studio 2015\Projects\Ex7.1_Snir_Yacoby\CustomerAp
 E:\Visual Projects\CodeValueExercises\Ex7.1_Snir_Yacoby\CustomerApp\bin\Debug\CustomerApp.exe.config
 E:\Visual Projects\CodeValueExercises\Ex7.1_Snir_Yacoby\CustomerApp\obj\Debug\CustomerApp.exe
 E:\Visual Projects\CodeValueExercises\Ex7.1_Snir_Yacoby\CustomerApp\obj\Debug\CustomerApp.pdb
+E:\Visual Projects\CodeValueExercises\Ex7.1_Snir_Yacoby\CustomerApp\bin\Debug\CustomerApp.exe
+E:\Visual Projects\CodeValueExercises\Ex7.1_Snir_Yacoby\CustomerApp\bin\Debug\CustomerApp.pdb
+E:\Visual Projects\CodeValueExercises\Ex7.1_Snir_Yacoby\CustomerApp\obj\Debug\CustomerApp.csprojResolveAssemblyReference.cache

@@ -10,7 +10,14 @@ namespace CustomerApp
     {
         public int Compare(Customer x, Customer y)
         {
-            return x.Id.CompareTo(y.Id);
+            if(x == null)
+            {
+                return -1;
+            }
+            else
+            {
+                return x.Id.CompareTo(y?.Id);
+            }
         }
     }
 }
