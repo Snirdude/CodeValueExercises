@@ -13,12 +13,13 @@ namespace FileFinder
         {
             if (args.Length > 1)
             {
-                IEnumerable<string> files = new List<string>();
+                IEnumerable<string> files = new List<string>(), subdirectories = new List<string>();
                 List<string> filteredFiles = new List<string>();
 
                 try
                 {
-                    files = Directory.EnumerateFiles(args[0]);
+                    files = Directory.EnumerateDirectories(args[0]);
+                    //files = Directory.EnumerateFiles(args[0]);
                     foreach (string file in files)
                     {
                         if (file.Contains(args[1]))
@@ -29,7 +30,7 @@ namespace FileFinder
 
                     foreach (string file in filteredFiles)
                     {
-                        Console.WriteLine("Filename: " + file);
+                        Console.WriteLine($"Filename: {file}, Length: {file.Length}");
                     }
                 }
                 catch (DirectoryNotFoundException e)
@@ -40,6 +41,17 @@ namespace FileFinder
             else
             {
                 Console.WriteLine("Not enough parameters");
+            }
+        }
+
+        IEnumerable<string> EnumerateFilesWithinDirectory(string path)
+        {
+            IEnumerable<string> subdirectories;
+
+            subdirectories = Directory.EnumerateDirectories(path);
+            while (subdirectories.Count() > 0)
+            {
+
             }
         }
     }
