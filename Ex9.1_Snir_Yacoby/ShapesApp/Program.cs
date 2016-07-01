@@ -18,6 +18,8 @@ namespace ShapesApp
             sm.Add(new Ellipse(2.5, 4, ConsoleColor.Blue));
             sm.Add(new Circle(5));
             sm.DisplayAll();
+
+            Console.ReadLine();
         }
     }
 }

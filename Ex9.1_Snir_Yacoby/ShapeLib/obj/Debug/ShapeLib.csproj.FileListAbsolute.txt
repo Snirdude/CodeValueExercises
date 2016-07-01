@@ -3,3 +3,8 @@ c:\users\snir\documents\visual studio 2015\Projects\Shapes\ShapeLib\bin\Debug\Sh
 c:\users\snir\documents\visual studio 2015\Projects\Shapes\ShapeLib\obj\Debug\ShapeLib.dll
 c:\users\snir\documents\visual studio 2015\Projects\Shapes\ShapeLib\obj\Debug\ShapeLib.pdb
 c:\users\snir\documents\visual studio 2015\Projects\Shapes\ShapeLib\obj\Debug\ShapeLib.csprojResolveAssemblyReference.cache
+D:\Visual Projects\CodeValueExercises\Ex9.1_Snir_Yacoby\ShapeLib\bin\Debug\ShapeLib.dll
+D:\Visual Projects\CodeValueExercises\Ex9.1_Snir_Yacoby\ShapeLib\bin\Debug\ShapeLib.pdb
+D:\Visual Projects\CodeValueExercises\Ex9.1_Snir_Yacoby\ShapeLib\obj\Debug\ShapeLib.csprojResolveAssemblyReference.cache
+D:\Visual Projects\CodeValueExercises\Ex9.1_Snir_Yacoby\ShapeLib\obj\Debug\ShapeLib.dll
+D:\Visual Projects\CodeValueExercises\Ex9.1_Snir_Yacoby\ShapeLib\obj\Debug\ShapeLib.pdb
