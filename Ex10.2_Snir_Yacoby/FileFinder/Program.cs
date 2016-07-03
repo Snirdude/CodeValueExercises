@@ -13,24 +13,23 @@ namespace FileFinder
         {
             if (args.Length > 1)
             {
-                IEnumerable<string> files = new List<string>(), subdirectories = new List<string>();
-                List<string> filteredFiles = new List<string>();
+                List<FileInfo> files, filteredFiles = new List<FileInfo>();
+                Program p = new Program();
 
                 try
                 {
-                    files = Directory.EnumerateDirectories(args[0]);
-                    //files = Directory.EnumerateFiles(args[0]);
-                    foreach (string file in files)
+                    files = p.EnumerateFilesWithinDirectory(args[0]);
+                    foreach (FileInfo file in files)
                     {
-                        if (file.Contains(args[1]))
+                        if (file.Name.Contains(args[1]))
                         {
                             filteredFiles.Add(file);
                         }
                     }
 
-                    foreach (string file in filteredFiles)
+                    foreach (FileInfo file in filteredFiles)
                     {
-                        Console.WriteLine($"Filename: {file}, Length: {file.Length}");
+                        Console.WriteLine($"Filename: {file.Name}, Size: {file.Length} Bytes");
                     }
                 }
                 catch (DirectoryNotFoundException e)
@@ -44,15 +43,18 @@ namespace FileFinder
             }
         }
 
-        IEnumerable<string> EnumerateFilesWithinDirectory(string path)
+        List<FileInfo> EnumerateFilesWithinDirectory(string path)
         {
-            IEnumerable<string> subdirectories;
-
-            subdirectories = Directory.EnumerateDirectories(path);
-            while (subdirectories.Count() > 0)
+            IEnumerable<string> subdirectories = Directory.GetDirectories(path);
+            DirectoryInfo currentDirectory = new DirectoryInfo(path);
+            List<FileInfo> files = currentDirectory.GetFiles().ToList();
+            
+            foreach(string subdirectory in subdirectories)
             {
-
+                files.AddRange(EnumerateFilesWithinDirectory(subdirectory));
             }
+
+            return files;
         }
     }
 }
