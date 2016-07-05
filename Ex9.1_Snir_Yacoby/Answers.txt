@@ -1,0 +1,4 @@
+2. The application runs correctly because the fusion component searches for .dll and .exe with the same name file
+because exe can be used like a dll.
+3. The application does not run because the search path for folder Bin is not in the default options of search paths.
+12. The application works because we have added the search path of folder Bin to the search paths of the fusion component.

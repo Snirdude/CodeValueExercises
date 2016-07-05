@@ -16,7 +16,10 @@ namespace Personnel
 
             foreach(string name in names)
             {
-                Console.WriteLine("Name: " + name);
+                if(name != string.Empty)
+                {
+                    Console.WriteLine("Name: " + name);
+                }
             }
         }
 
