@@ -18,8 +18,7 @@ namespace CustomerApp
             array[3] = new Customer("Yossi Yadgar", 5, "Hatizmoret 40");
             array[4] = new Customer("Asi Abergel", 7, "Menashe Tselach 12");
 
-            Console.WriteLine(array[0].CompareTo(null));
-            /*CustomerFilter filter = new CustomerFilter(AKFirstLetterFilter);
+            CustomerFilter filter = new CustomerFilter(AKFirstLetterFilter);
 
             ICollection<Customer> filteredArray = GetCustomers(array, filter);
 
@@ -74,7 +73,6 @@ namespace CustomerApp
                 Console.WriteLine("Address: " + customer.Address);
                 Console.WriteLine();
             }
-            */
         }
 
         static ICollection<Customer> GetCustomers(ICollection<Customer> i_Collection, CustomerFilter i_Filter)

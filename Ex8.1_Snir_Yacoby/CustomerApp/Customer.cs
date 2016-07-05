@@ -30,5 +30,22 @@ namespace CustomerApp
         {
             return Name.Equals(other?.Name) && Id.Equals(other?.Id);
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Customer)
+            {
+                return Equals((Customer)obj);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }
