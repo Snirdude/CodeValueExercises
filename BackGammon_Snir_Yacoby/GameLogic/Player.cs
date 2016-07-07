@@ -6,12 +6,6 @@ using System.Threading.Tasks;
 
 namespace GameLogic
 {
-    public enum ePlayerColor
-    {
-        Blue,
-        White
-    }
-
     public enum ePlayerType
     {
         PlayerOne,
@@ -21,14 +15,13 @@ namespace GameLogic
     public class Player
     {
         public ePlayerType Type { get; private set; }
-        public ePlayerColor Color { get; private set; }
         public int OnBoardPieces { get; private set; } = 15;
         public int EatenPieces { get; private set; } = 0;
+        public bool ReadyToClear { get; private set; } = false;
 
-        public Player(ePlayerType type, ePlayerColor color)
+        public Player(ePlayerType type)
         {
             Type = type;
-            Color = color;
         }
 
         public void Eaten()
@@ -41,6 +34,21 @@ namespace GameLogic
         {
             OnBoardPieces++;
             EatenPieces--;
+        }
+
+        public void Cleared()
+        {
+            OnBoardPieces--;
+        }
+
+        public void CanStartClearing()
+        {
+            ReadyToClear = true;
+        }
+
+        public bool CheckWinner()
+        {
+            return OnBoardPieces == 0 && EatenPieces == 0;
         }
     }
 }

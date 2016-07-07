@@ -8,10 +8,14 @@ namespace GameLogic
 {
     public class GameBoard
     {
+        private Player playerOne, playerTwo;
         public PieceOnBoard[,] Board { get; private set; } = new PieceOnBoard[2, 12];
+        public bool HasGameEnded { get; private set; } = false;
 
         public GameBoard(Player playerOne, Player playerTwo)
         {
+            this.playerOne = playerOne;
+            this.playerTwo = playerTwo;
             Board[0, 0] = new PieceOnBoard(playerOne, 2);
             Board[0, 5] = new PieceOnBoard(playerTwo, 5);
             Board[0, 7] = new PieceOnBoard(playerTwo, 3);
@@ -22,13 +26,40 @@ namespace GameLogic
             Board[1, 0] = new PieceOnBoard(playerTwo, 2);
         }
 
-        public int[] RollDices()
+        public Player WhoGoesFirst()
+        {
+            int rollOne, rollTwo;
+
+            do
+            {
+                rollOne = RollDice();
+                rollTwo = RollDice();
+            }
+            while (rollOne == rollTwo);
+
+            if(rollOne > rollTwo)
+            {
+                return playerOne;
+            }
+            else
+            {
+                return playerTwo;
+            }
+        }
+
+        public int RollDice()
+        {
+            return new Random().Next(1, 6);
+        }
+
+        public int[] RollDices(out bool isDouble)
         {
             int[] dices = new int[2];
             Random roller = new Random();
 
             dices[0] = roller.Next(1, 6);
             dices[1] = roller.Next(1, 6);
+            isDouble = dices[0] == dices[1];
 
             return dices;
         }
@@ -42,7 +73,14 @@ namespace GameLogic
                 isLegal = CheckMoveLegality(player, roll);
                 if (isLegal)
                 {
-                    MovePiece(player, roll, -1, -1);
+                    if(player.Type == ePlayerType.PlayerOne)
+                    {
+                        MovePiece(player, roll, 0, -1);
+                    }
+                    else
+                    {
+                        MovePiece(player, roll, 1, -1);
+                    }
                 }
             }
             else
@@ -53,22 +91,36 @@ namespace GameLogic
                 if (isLegal)
                 {
                     MovePiece(player, roll, fromRow, fromCol);
+                    HasGameEnded = CheckForWinners();
                 }
             }
 
             return isLegal;
         }
 
+        private bool CheckForWinners()
+        {
+            return playerOne.CheckWinner() || playerTwo.CheckWinner();
+        }
+
         private void MovePiece(Player player, int roll, int rowIndex, int colIndex)
         {
-            if(rowIndex != -1 && colIndex != -1)
+            if(colIndex != -1)
             {
                 Board[rowIndex, colIndex].ChangeCount(false);
+            }
+            else
+            {
+                player.Saved();
             }
 
             ChangeIndexes(player, roll, ref rowIndex, ref colIndex);
 
-            if (Board[rowIndex, colIndex].Count != 0 && Board[rowIndex, colIndex].Player.Type != player.Type)
+            if(colIndex < 0)
+            {
+                player.Cleared();
+            }
+            else if (Board[rowIndex, colIndex].Count != 0 && Board[rowIndex, colIndex].Player.Type != player.Type)
             {
                 Board[rowIndex, colIndex].Player.Eaten();
                 Board[rowIndex, colIndex] = new PieceOnBoard(player, 1);
@@ -83,17 +135,17 @@ namespace GameLogic
             }
         }
 
+        //Calculating indexes after roll of the dice
         private void ChangeIndexes(Player player, int roll, ref int rowIndex, ref int colIndex)
         {
             if(player.Type == ePlayerType.PlayerOne)
             {
-                if(rowIndex == 1)
+                if(rowIndex == 0)
                 {
-                    colIndex += roll;
-                    if(colIndex > 11)
+                    if(colIndex + roll > 11)
                     {
-                        colIndex -= colIndex % 12;
-                        rowIndex--;
+                        colIndex -= (colIndex + roll) % 12;
+                        rowIndex++;
                     }
                 }
                 else
@@ -103,13 +155,12 @@ namespace GameLogic
             }
             else
             {
-                if (rowIndex == 0)
+                if (rowIndex == 1)
                 {
-                    colIndex += roll;
-                    if (colIndex > 11)
+                    if (colIndex + roll > 11)
                     {
-                        colIndex -= colIndex % 12;
-                        rowIndex++;
+                        colIndex -= (colIndex + roll) % 12;
+                        rowIndex--;
                     }
                 }
                 else
@@ -135,8 +186,8 @@ namespace GameLogic
             }
 
             isLegal = piece.Count == 0;
-            isLegal |= piece.Player.Type == player.Type;
-            isLegal |= piece.Player.Type != player.Type && piece.Count == 1;
+            isLegal |= piece.Player?.Type == player.Type;
+            isLegal |= piece.Player?.Type != player.Type && piece.Count == 1;
 
             return isLegal;
         }
@@ -159,12 +210,23 @@ namespace GameLogic
             PieceOnBoard piece;
 
             ChangeIndexes(player, roll, ref rowIndex, ref colIndex);
-            isValid = !(rowIndex > 1 || rowIndex < 0 || colIndex > 11 || colIndex < 0);
-            piece = Board[rowIndex, colIndex];
-            subValid = piece.Count == 0;
-            subValid |= piece.Player.Type == player.Type;
-            subValid |= piece.Player.Type != player.Type && piece.Count == 1;
-            isValid &= subValid;
+            if (player.ReadyToClear)
+            {
+                isValid = !(rowIndex > 1 || rowIndex < 0 || colIndex > 11 || colIndex < -6);
+            }
+            else
+            {
+                isValid = !(rowIndex > 1 || rowIndex < 0 || colIndex > 11 || colIndex < 0);
+            }
+
+            if(colIndex >= 0)
+            {
+                piece = Board[rowIndex, colIndex];
+                subValid = piece.Count == 0;
+                subValid |= piece.Player?.Type == player.Type;
+                subValid |= piece.Player?.Type != player.Type && piece.Count == 1;
+                isValid &= subValid;
+            }
 
             return isValid;
         }
