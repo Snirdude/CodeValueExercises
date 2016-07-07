@@ -27,27 +27,6 @@ namespace GameLogic
             Board[1, 0] = new PieceOnBoard(playerTwo, 2);
         }
 
-        public Player WhoGoesFirst()
-        {
-            int rollOne, rollTwo;
-
-            do
-            {
-                rollOne = RollDice();
-                rollTwo = RollDice();
-            }
-            while (rollOne == rollTwo);
-
-            if(rollOne > rollTwo)
-            {
-                return playerOne;
-            }
-            else
-            {
-                return playerTwo;
-            }
-        }
-
         public int RollDice()
         {
             return new Random().Next(1, 6);
@@ -139,6 +118,8 @@ namespace GameLogic
         //Calculating indexes after roll of the dice
         private void ChangeIndexes(Player player, int roll, ref int rowIndex, ref int colIndex)
         {
+            Debug.WriteLine($"Player: {player.Type}");
+            Debug.WriteLine($"Roll: {roll}");
             Debug.WriteLine($"Indexes before change: row {rowIndex}, col {colIndex}");
             if(player.Type == ePlayerType.PlayerOne)
             {
@@ -146,7 +127,7 @@ namespace GameLogic
                 {
                     if(colIndex + roll > 11)
                     {
-                        colIndex -= (colIndex + roll) % 12;
+                        colIndex = 11 - (colIndex + roll) % 12;
                         rowIndex++;
                     }
                     else
@@ -165,7 +146,7 @@ namespace GameLogic
                 {
                     if (colIndex + roll > 11)
                     {
-                        colIndex -= (colIndex + roll) % 12;
+                        colIndex = 11 - (colIndex + roll) % 12;
                         rowIndex--;
                     }
                     else

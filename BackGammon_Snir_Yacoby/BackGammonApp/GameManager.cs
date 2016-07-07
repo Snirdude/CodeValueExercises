@@ -24,8 +24,7 @@ namespace BackGammonApp
         {
             bool playerOneFirst, isDouble;
 
-            playerOneFirst = gameBoard.WhoGoesFirst().Type == playerOne.Type;
-            gameUI.AnnounceBeginner(playerOneFirst);
+            playerOneFirst = gameUI.RunOpeningSequence(gameBoard.RollDice);
             while (!gameBoard.HasGameEnded)
             {
                 gameUI.ClearScreen();

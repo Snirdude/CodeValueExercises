@@ -15,7 +15,8 @@ namespace GameConsoleUI
             int i = 0, j = 0;
             
             Console.WriteLine("______________________________________");
-            for(i = 1; i <= 5; i++)
+            Console.WriteLine(" 1  2  3  4  5  6    7  8  9  10 11 12");
+            for (i = 1; i <= 5; i++)
             {
                 for (j = 0; j < 6; j++)
                 {
@@ -85,6 +86,34 @@ namespace GameConsoleUI
         public void PrintDoubleMessage()
         {
             Console.WriteLine("Double! Play twice.");
+        }
+
+        public bool RunOpeningSequence(Func<int> rollDice)
+        {
+            int rollOne, rollTwo;
+
+            do
+            {
+                Console.WriteLine("Player one, press enter to roll dice");
+                Console.ReadLine();
+                rollOne = (int)rollDice.DynamicInvoke();
+                DrawDice(rollOne);
+                Console.WriteLine("Player two, press enter to roll dice");
+                Console.ReadLine();
+                rollTwo = (int)rollDice.DynamicInvoke();
+                DrawDice(rollTwo);
+                if(rollOne == rollTwo)
+                {
+                    Console.WriteLine("Tie! Resetting dices...");
+                    Thread.Sleep(3000);
+                    ClearScreen();
+                }
+            }
+            while (rollOne == rollTwo);
+
+            AnnounceBeginner(rollOne > rollTwo);
+
+            return rollOne > rollTwo;
         }
 
         public void AnnounceBeginner(bool playerOneFirst)
@@ -160,15 +189,21 @@ namespace GameConsoleUI
                 col = -1;
                 do
                 {
-                    Console.WriteLine("Choose dice 1 or 2:");
+                    Console.WriteLine("Available dices: 1-2");
+                    Console.WriteLine("Choose dice:");
                     input = Console.ReadLine().Trim();
                     validInput = int.TryParse(input, out dice);
                     validInput &= dice == 1 || dice == 2;
+                    if(!validInput)
+                    {
+                        Console.WriteLine("Invalid input");
+                    }
                 }
                 while (!validInput);
             }
             else
             {
+                Console.WriteLine("Available dices: 1-2");
                 Console.WriteLine("Available rows: 1-2");
                 Console.WriteLine("Available columns: 1-12");
                 do
@@ -176,7 +211,7 @@ namespace GameConsoleUI
                     string[] input;
                     do
                     {
-                        Console.WriteLine("Choose dices 1 or 2 and enter row and col (all seperated by commas):");
+                        Console.WriteLine("Choose dice, row and col (all seperated by commas):");
                         input = Console.ReadLine().Trim().Split(',');
                         validInput = input.Length == 3;
                     }
@@ -186,6 +221,10 @@ namespace GameConsoleUI
                     validInput &= int.TryParse(input[1], out row);
                     validInput &= int.TryParse(input[2], out col);
                     validInput &= dice == 1 || dice == 2;
+                    if (!validInput)
+                    {
+                        Console.WriteLine("Invalid input");
+                    }
                 }
                 while (!validInput);
             }
@@ -213,7 +252,7 @@ namespace GameConsoleUI
             else
             {
                 string[] input;
-
+                
                 Console.WriteLine("Available rows: 1-2");
                 Console.WriteLine("Available columns: 1-12");
                 do
@@ -223,6 +262,10 @@ namespace GameConsoleUI
                     validInput = input.Length == 2;
                     validInput &= int.TryParse(input[0], out row);
                     validInput &= int.TryParse(input[1], out col);
+                    if (!validInput)
+                    {
+                        Console.WriteLine("Invalid input");
+                    }
                 }
                 while (!validInput);
             }
