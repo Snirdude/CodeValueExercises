@@ -96,20 +96,20 @@ namespace GameLogic
 
             ChangeIndexes(player, roll, ref rowIndex, ref colIndex);
 
-            if(colIndex < 0)
+            if(colIndex < 0) // Player is clearing pieces
             {
                 player.Cleared();
             }
-            else if (Board[rowIndex, colIndex].Count != 0 && Board[rowIndex, colIndex].Player.Type != player.Type)
+            else if (Board[rowIndex, colIndex].Count != 0 && Board[rowIndex, colIndex].Player.Type != player.Type) // Player is eating other player's piece
             {
                 Board[rowIndex, colIndex].Player.Eaten();
                 Board[rowIndex, colIndex] = new PieceOnBoard(player, 1);
             }
-            else if (Board[rowIndex, colIndex].Count != 0)
+            else if (Board[rowIndex, colIndex].Count != 0) // There are pieces of the player
             {
                 Board[rowIndex, colIndex].ChangeCount(true);
             }
-            else
+            else  // No pieces there
             {
                 Board[rowIndex, colIndex] = new PieceOnBoard(player, 1);
             }
