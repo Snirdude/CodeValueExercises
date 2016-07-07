@@ -72,6 +72,11 @@ namespace BackGammonApp
                 {
                     legalMove = gameBoard.MakeMove(playerTwo, dices[0], row, col);
                 }
+                
+                if(!legalMove)
+                {
+                    gameUI.PrintIllegalMoveMessage();
+                }
             }
             while (!legalMove);
 
@@ -88,6 +93,11 @@ namespace BackGammonApp
                     else
                     {
                         legalMove = gameBoard.MakeMove(playerTwo, dices[0], row, col);
+                    }
+
+                    if (!legalMove)
+                    {
+                        gameUI.PrintIllegalMoveMessage();
                     }
                 }
                 while (!legalMove);
@@ -134,6 +144,11 @@ namespace BackGammonApp
                         legalMove = gameBoard.MakeMove(playerTwo, dices[1], row, col);
                     }
                 }
+
+                if (!legalMove)
+                {
+                    gameUI.PrintIllegalMoveMessage();
+                }
             }
             while (!legalMove);
 
@@ -162,6 +177,11 @@ namespace BackGammonApp
                     {
                         legalMove &= gameBoard.MakeMove(playerTwo, dices[1], row, col);
                     }
+                }
+
+                if (!legalMove)
+                {
+                    gameUI.PrintIllegalMoveMessage();
                 }
             }
             while (!legalMove);

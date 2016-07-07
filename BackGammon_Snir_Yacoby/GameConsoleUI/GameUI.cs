@@ -83,6 +83,11 @@ namespace GameConsoleUI
             Console.WriteLine("______________________________________");
         }
 
+        public void PrintIllegalMoveMessage()
+        {
+            Console.WriteLine("Illegal move, try again");
+        }
+
         public void PrintDoubleMessage()
         {
             Console.WriteLine("Double! Play twice.");
