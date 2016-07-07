@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -138,6 +139,7 @@ namespace GameLogic
         //Calculating indexes after roll of the dice
         private void ChangeIndexes(Player player, int roll, ref int rowIndex, ref int colIndex)
         {
+            Debug.WriteLine($"Indexes before change: row {rowIndex}, col {colIndex}");
             if(player.Type == ePlayerType.PlayerOne)
             {
                 if(rowIndex == 0)
@@ -146,6 +148,10 @@ namespace GameLogic
                     {
                         colIndex -= (colIndex + roll) % 12;
                         rowIndex++;
+                    }
+                    else
+                    {
+                        colIndex += roll;
                     }
                 }
                 else
@@ -162,12 +168,18 @@ namespace GameLogic
                         colIndex -= (colIndex + roll) % 12;
                         rowIndex--;
                     }
+                    else
+                    {
+                        colIndex += roll;
+                    }
                 }
                 else
                 {
                     colIndex -= roll;
                 }
             }
+
+            Debug.WriteLine($"Indexes after change: row {rowIndex}, col {colIndex}");
         }
 
         //For eaten pieces
@@ -188,6 +200,8 @@ namespace GameLogic
             isLegal = piece.Count == 0;
             isLegal |= piece.Player?.Type == player.Type;
             isLegal |= piece.Player?.Type != player.Type && piece.Count == 1;
+
+            Debug.WriteLine($"Eaten check move legality: {isLegal}");
 
             return isLegal;
         }
@@ -228,17 +242,26 @@ namespace GameLogic
                 isValid &= subValid;
             }
 
+            Debug.WriteLine($"Valid target space: {isValid}");
             return isValid;
         }
 
         private bool CheckPlayerMatch(Player player, int rowIndex, int colIndex)
         {
-            return Board[rowIndex, colIndex].Player.Type == player.Type;
+            bool match = Board[rowIndex, colIndex].Player.Type == player.Type;
+
+            Debug.WriteLine($"Check player match: {match}");
+
+            return match;
         }
 
         private bool CheckPieceExists(int rowIndex, int colIndex)
         {
-            return Board[rowIndex, colIndex].Count > 0;
+            bool pieceExists = Board[rowIndex, colIndex].Count > 0;
+
+            Debug.WriteLine($"Check piece exists: {pieceExists}");
+
+            return pieceExists;
         }
     }
 }
