@@ -299,40 +299,41 @@ namespace GameConsoleUI
 
         private void DrawDice(int roll)
         {
+            Console.WriteLine("-------");
             switch (roll)
             {
                 case 1:
-                    Console.WriteLine("     ");
-                    Console.WriteLine("  *  ");
-                    Console.WriteLine("     ");
+                    Console.WriteLine("|     |");
+                    Console.WriteLine("|  *  |");
+                    Console.WriteLine("|     |");
                     break;
                 case 2:
-                    Console.WriteLine("*    ");
-                    Console.WriteLine("     ");
-                    Console.WriteLine("    *");
+                    Console.WriteLine("|*    |");
+                    Console.WriteLine("|     |");
+                    Console.WriteLine("|    *|");
                     break;
                 case 3:
-                    Console.WriteLine("*    ");
-                    Console.WriteLine("  *  ");
-                    Console.WriteLine("    *");
+                    Console.WriteLine("|*    |");
+                    Console.WriteLine("|  *  |");
+                    Console.WriteLine("|    *|");
                     break;
                 case 4:
-                    Console.WriteLine("*   *");
-                    Console.WriteLine("     ");
-                    Console.WriteLine("*   *");
+                    Console.WriteLine("|*   *|");
+                    Console.WriteLine("|     |");
+                    Console.WriteLine("|*   *|");
                     break;
                 case 5:
-                    Console.WriteLine("*   *");
-                    Console.WriteLine("  *  ");
-                    Console.WriteLine("*   *");
+                    Console.WriteLine("|*   *|");
+                    Console.WriteLine("|  *  |");
+                    Console.WriteLine("|*   *|");
                     break;
                 case 6:
-                    Console.WriteLine("*   *");
-                    Console.WriteLine("*   *");
-                    Console.WriteLine("*   *");
+                    Console.WriteLine("|*   *|");
+                    Console.WriteLine("|*   *|");
+                    Console.WriteLine("|*   *|");
                     break;
             }
-            Console.WriteLine();
+            Console.WriteLine("-------");
         }
 
         public void ClearScreen()
