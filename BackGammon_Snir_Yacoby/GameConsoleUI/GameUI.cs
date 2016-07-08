@@ -223,8 +223,7 @@ namespace GameConsoleUI
                     Console.WriteLine("Choose dice:");
                     input = Console.ReadLine().Trim();
                     validInput = int.TryParse(input, out dice);
-                    validInput &= dice == 1 || dice == 2;
-                    if(!validInput)
+                    if (!(validInput && (dice == 1 || dice == 2)))
                     {
                         Console.WriteLine("Invalid input");
                     }
@@ -241,17 +240,20 @@ namespace GameConsoleUI
                     string[] input;
                     do
                     {
-                        Console.WriteLine("Choose dice, row and col (all seperated by commas):");
+                        Console.WriteLine("Choose dice, row and column (all seperated by commas):");
                         input = Console.ReadLine().Trim().Split(',');
                         validInput = input.Length == 3;
+                        if (!validInput)
+                        {
+                            Console.WriteLine("Invalid input");
+                        }
                     }
                     while (!validInput);
 
                     validInput &= int.TryParse(input[0], out dice);
                     validInput &= int.TryParse(input[1], out row);
                     validInput &= int.TryParse(input[2], out col);
-                    validInput &= dice == 1 || dice == 2;
-                    if (!validInput)
+                    if (!(validInput && (dice == 1 || dice == 2)))
                     {
                         Console.WriteLine("Invalid input");
                     }
@@ -288,7 +290,7 @@ namespace GameConsoleUI
                 Console.WriteLine("Available columns: 1-12");
                 do
                 {
-                    Console.WriteLine("Enter row and col (all seperated by commas):");
+                    Console.WriteLine("Enter row and column (all seperated by commas):");
                     input = Console.ReadLine().Trim().Split(',');
                     validInput = input.Length == 2;
                     validInput &= int.TryParse(input[0], out row);
