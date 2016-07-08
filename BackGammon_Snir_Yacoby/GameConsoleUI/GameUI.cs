@@ -148,6 +148,7 @@ namespace GameConsoleUI
             int pieceCount = pieceOnBoard.Count;
             bool firstLayer = pieceCount >= i;
             bool secondLayer = pieceCount >= i + 5;
+            bool thirdLayer = pieceCount >= i + 10;
 
             if (pieceOnBoard.Player != null && firstLayer)
             {
@@ -155,7 +156,14 @@ namespace GameConsoleUI
                 {
                     if (secondLayer)
                     {
-                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        if (thirdLayer)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkCyan;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                        }
                     }
                     else
                     {
@@ -166,7 +174,14 @@ namespace GameConsoleUI
                 {
                     if (secondLayer)
                     {
-                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        if (thirdLayer)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Magenta;
+                        }
                     }
                     else
                     {
@@ -308,41 +323,41 @@ namespace GameConsoleUI
 
         private void DrawDice(int roll)
         {
-            Console.WriteLine("-------");
+            Console.WriteLine(" -------");
             switch (roll)
             {
                 case 1:
-                    Console.WriteLine("|     |");
-                    Console.WriteLine("|  *  |");
-                    Console.WriteLine("|     |");
+                    Console.WriteLine(" |     |");
+                    Console.WriteLine(" |  *  |");
+                    Console.WriteLine(" |     |");
                     break;
                 case 2:
-                    Console.WriteLine("|*    |");
-                    Console.WriteLine("|     |");
-                    Console.WriteLine("|    *|");
+                    Console.WriteLine(" |*    |");
+                    Console.WriteLine(" |     |");
+                    Console.WriteLine(" |    *|");
                     break;
                 case 3:
-                    Console.WriteLine("|*    |");
-                    Console.WriteLine("|  *  |");
-                    Console.WriteLine("|    *|");
+                    Console.WriteLine(" |*    |");
+                    Console.WriteLine(" |  *  |");
+                    Console.WriteLine(" |    *|");
                     break;
                 case 4:
-                    Console.WriteLine("|*   *|");
-                    Console.WriteLine("|     |");
-                    Console.WriteLine("|*   *|");
+                    Console.WriteLine(" |*   *|");
+                    Console.WriteLine(" |     |");
+                    Console.WriteLine(" |*   *|");
                     break;
                 case 5:
-                    Console.WriteLine("|*   *|");
-                    Console.WriteLine("|  *  |");
-                    Console.WriteLine("|*   *|");
+                    Console.WriteLine(" |*   *|");
+                    Console.WriteLine(" |  *  |");
+                    Console.WriteLine(" |*   *|");
                     break;
                 case 6:
-                    Console.WriteLine("|*   *|");
-                    Console.WriteLine("|*   *|");
-                    Console.WriteLine("|*   *|");
+                    Console.WriteLine(" |*   *|");
+                    Console.WriteLine(" |*   *|");
+                    Console.WriteLine(" |*   *|");
                     break;
             }
-            Console.WriteLine("-------");
+            Console.WriteLine(" -------");
         }
 
         public void ClearScreen()
