@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GameLogic;
 using System.Threading;
+using System.Diagnostics;
 
 namespace GameConsoleUI
 {
@@ -183,7 +184,8 @@ namespace GameConsoleUI
         {
             int dice;
             bool validInput;
-            
+
+            Debug.WriteLine($"Player type: {player.Type}, eaten pieces: {player.EatenPieces}");
             if(player.EatenPieces > 0)
             {
                 string input;
@@ -247,6 +249,7 @@ namespace GameConsoleUI
         {
             bool validInput;
 
+            Debug.WriteLine($"Player type: {player.Type}, eaten pieces: {player.EatenPieces}");
             if (player.EatenPieces > 0)
             {
                 if (player.Type == ePlayerType.PlayerOne)

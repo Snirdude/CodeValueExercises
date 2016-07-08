@@ -10,6 +10,11 @@ namespace GameLogic
     {
         public HumanPlayer(ePlayerType type) : base(type) { }
 
+        public override object Clone()
+        {
+            return new HumanPlayer(Type);
+        }
+
         public override bool MakeMove(PieceOnBoard[,] board, int roll, int fromRow, int fromCol)
         {
             bool isLegal;

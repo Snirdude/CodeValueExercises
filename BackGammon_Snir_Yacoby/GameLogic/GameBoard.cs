@@ -35,8 +35,10 @@ namespace GameLogic
         public bool CheckForAnyLegalMoves(BasePlayer player, int[] dices, bool isDouble)
         {
             int legalMovesCount = 0;
-            PieceOnBoard[,] boardSimulator = (PieceOnBoard[,])Board.Clone();
+            PieceOnBoard[,] boardSimulator = CreateCopyOfBoard(Board);
             bool answer = false, legalMove;
+
+            Debug.WriteLine($"Board copy sucessful: {!boardSimulator.Equals(Board)}");
 
             if (!isDouble)
             {
@@ -85,12 +87,14 @@ namespace GameLogic
         private bool CheckForOneLegalMove(PieceOnBoard[,] board, BasePlayer player, int roll)
         {
             bool legalMove = false;
+            bool? helper;
 
             for (int i = 1; i <= 2; i++)
             {
                 for (int j = 1; j <= 12; j++)
                 {
-                    if (board[i - 1, j - 1].Player == player)
+                    helper = board[i - 1, j - 1].Player?.Equals(player);
+                    if (helper != null && helper != false)
                     {
                         legalMove = player.MakeMove(board, roll, i, j);
                         if (legalMove)
@@ -107,6 +111,21 @@ namespace GameLogic
             }
 
             return legalMove;
+        }
+
+        private PieceOnBoard[,] CreateCopyOfBoard(PieceOnBoard[,] source)
+        {
+            PieceOnBoard[,] copy = new PieceOnBoard[2, 12];
+
+            for(int i = 0; i < 2; i++)
+            {
+                for(int j = 0; j < 12; j++)
+                {
+                    copy[i, j] = new PieceOnBoard(source[i, j]);
+                }
+            }
+
+            return copy;
         }
     }
 }

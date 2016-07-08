@@ -13,7 +13,7 @@ namespace GameLogic
         PlayerTwo
     }
 
-    public abstract class BasePlayer
+    public abstract class BasePlayer : ICloneable, IEquatable<BasePlayer>
     {
         public ePlayerType Type { get; private set; }
         public int OnBoardPieces { get; private set; } = 15;
@@ -188,6 +188,19 @@ namespace GameLogic
             Debug.WriteLine($"Check piece exists: {pieceExists}");
 
             return pieceExists;
+        }
+
+        public abstract object Clone();
+
+        public bool Equals(BasePlayer other)
+        {
+            bool equals = Type == other.Type;
+
+            equals &= OnBoardPieces == other.OnBoardPieces;
+            equals &= EatenPieces == other.EatenPieces;
+            equals &= ReadyToClear == other.ReadyToClear;
+
+            return equals;
         }
     }
 }

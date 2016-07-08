@@ -29,6 +29,7 @@
   <Class Name="GameLogic.BasePlayer">
     <Position X="7" Y="0.5" Width="1.75" />
     <TypeIdentifier />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="GameLogic.HumanPlayer" Collapsed="true">
     <Position X="9" Y="0.5" Width="1.5" />

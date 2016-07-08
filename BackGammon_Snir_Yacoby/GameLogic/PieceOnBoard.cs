@@ -17,6 +17,20 @@ namespace GameLogic
             Count = count;
         }
 
+        public PieceOnBoard(PieceOnBoard piece)
+        {
+            if(piece.Player is HumanPlayer)
+            {
+                Player = (HumanPlayer)piece.Player.Clone();
+            }
+            else
+            {
+                Player = piece.Player;
+            }
+
+            Count = piece.Count;
+        }
+
         public void ChangeCount(bool raise)
         {
             if (raise)

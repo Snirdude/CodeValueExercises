@@ -38,17 +38,21 @@ namespace BackGammonApp
                 {
                     gameUI.ShowCannotPlayMessage();
                 }
-                if (isDouble)
-                {
-                    gameUI.PrintDoubleMessage();
-                    MakeDoubleMoves(dices, playerOneFirst);
-                }
                 else
                 {
-                    MakeMoves(dices, playerOneFirst);
+                    if (isDouble)
+                    {
+                        gameUI.PrintDoubleMessage();
+                        MakeDoubleMoves(dices, playerOneFirst);
+                    }
+                    else
+                    {
+                        MakeMoves(dices, playerOneFirst);
+                    }
+
+                    gameBoard.CheckForWinners();
                 }
-                
-                gameBoard.CheckForWinners();
+
                 playerOneFirst = !playerOneFirst;
             }
         }
