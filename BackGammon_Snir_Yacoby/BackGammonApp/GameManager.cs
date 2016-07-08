@@ -50,6 +50,15 @@ namespace BackGammonApp
                         MakeMoves(dices, playerOneFirst);
                     }
 
+                    if (gameBoard.CheckIfPlayerCanStartClearing(currentPlayer))
+                    {
+                        currentPlayer.CanStartClearing();
+                    }
+                    else
+                    {
+                        currentPlayer.StopClearing();
+                    }
+
                     gameBoard.CheckForWinners();
                 }
 
