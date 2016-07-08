@@ -8,11 +8,11 @@ namespace GameLogic
 {
     public class HumanPlayer : BasePlayer
     {
-        public HumanPlayer(ePlayerType type) : base(type) { }
+        public HumanPlayer(ePlayerType type, int onBoardPieces = 15, int eatenPieces = 0, bool readyToClear = false) : base(type, onBoardPieces, eatenPieces, readyToClear) { }
 
         public override object Clone()
         {
-            return new HumanPlayer(Type);
+            return new HumanPlayer(Type, OnBoardPieces, EatenPieces, ReadyToClear);
         }
 
         public override bool MakeMove(PieceOnBoard[,] board, int roll, int fromRow, int fromCol)

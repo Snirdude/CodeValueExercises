@@ -16,13 +16,16 @@ namespace GameLogic
     public abstract class BasePlayer : ICloneable, IEquatable<BasePlayer>
     {
         public ePlayerType Type { get; private set; }
-        public int OnBoardPieces { get; private set; } = 15;
-        public int EatenPieces { get; private set; } = 0;
-        public bool ReadyToClear { get; private set; } = false;
+        public int OnBoardPieces { get; private set; }
+        public int EatenPieces { get; private set; }
+        public bool ReadyToClear { get; private set; }
 
-        public BasePlayer(ePlayerType type)
+        public BasePlayer(ePlayerType type, int onBoardPieces = 15, int eatenPieces = 0, bool readyToClear = false)
         {
             Type = type;
+            OnBoardPieces = onBoardPieces;
+            EatenPieces = eatenPieces;
+            ReadyToClear = readyToClear;
         }
 
         public void Eaten()
@@ -74,7 +77,7 @@ namespace GameLogic
             return dices;
         }
 
-        public abstract bool MakeMove(PieceOnBoard[,] board, int roll, int fromRow, int fromCol);
+        public abstract bool MakeMove(PieceOnBoard[,] board, int roll, int fromRow = 0, int fromCol = 0);
 
         protected void MovePiece(PieceOnBoard[,] board, int roll, int rowIndex, int colIndex)
         {

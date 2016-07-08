@@ -36,19 +36,24 @@ namespace GameLogic
         {
             int legalMovesCount = 0;
             PieceOnBoard[,] boardSimulator = CreateCopyOfBoard(Board);
+            BasePlayer playerSimulator;
             bool answer = false, legalMove;
 
             Debug.WriteLine($"Board copy sucessful: {!boardSimulator.Equals(Board)}");
 
+            //if player is Human then
+            playerSimulator = new HumanPlayer(player.Type, player.OnBoardPieces, player.EatenPieces, player.ReadyToClear);
+            // else player is Computer...
+
             if (!isDouble)
             {
-                legalMove = CheckForOneLegalMove(boardSimulator, player, dices[0]);
+                legalMove = CheckForOneLegalMove(boardSimulator, playerSimulator, dices[0]);
                 if (legalMove)
                 {
                     legalMovesCount++;
                 }
 
-                legalMove = CheckForOneLegalMove(boardSimulator, player, dices[1]);
+                legalMove = CheckForOneLegalMove(boardSimulator, playerSimulator, dices[1]);
                 if (legalMovesCount == 1 && legalMove)
                 {
                     legalMovesCount++;
@@ -56,9 +61,11 @@ namespace GameLogic
 
                 if (legalMovesCount == 1 && legalMove)
                 {
-                    legalMove = CheckForOneLegalMove(boardSimulator, player, dices[0]);
+                    legalMove = CheckForOneLegalMove(boardSimulator, playerSimulator, dices[0]);
                     legalMovesCount++;
                 }
+
+                Debug.WriteLine($"legalMovesCount = {legalMovesCount}");
 
                 if (legalMovesCount == 2)
                 {
@@ -69,7 +76,7 @@ namespace GameLogic
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    if (CheckForOneLegalMove(boardSimulator, player, dices[0]))
+                    if (CheckForOneLegalMove(boardSimulator, playerSimulator, dices[0]))
                     {
                         legalMovesCount++;
                     }
@@ -87,26 +94,36 @@ namespace GameLogic
         private bool CheckForOneLegalMove(PieceOnBoard[,] board, BasePlayer player, int roll)
         {
             bool legalMove = false;
-            bool? helper;
+            bool helper;
 
-            for (int i = 1; i <= 2; i++)
+            Debug.WriteLine($"In CheckForOneLegalMove, eaten pieces: {player.EatenPieces}");
+            if(player.EatenPieces > 0)
             {
-                for (int j = 1; j <= 12; j++)
+                legalMove = player.MakeMove(board, roll);
+            }
+            else
+            {
+                for (int i = 1; i <= 2; i++)
                 {
-                    helper = board[i - 1, j - 1].Player?.Equals(player);
-                    if (helper != null && helper != false)
+                    for (int j = 1; j <= 12; j++)
                     {
-                        legalMove = player.MakeMove(board, roll, i, j);
-                        if (legalMove)
+                        helper = board[i - 1, j - 1].Player?.Type == player.Type;
+                        helper |= board[i - 1, j - 1].Count == 0;
+                        helper |= board[i - 1, j - 1].Player?.Type != player.Type && board[i - 1, j - 1].Count == 1;
+                        if (helper)
                         {
-                            break;
+                            legalMove = player.MakeMove(board, roll, i, j);
+                            if (legalMove)
+                            {
+                                break;
+                            }
                         }
                     }
-                }
 
-                if (legalMove)
-                {
-                    break;
+                    if (legalMove)
+                    {
+                        break;
+                    }
                 }
             }
 

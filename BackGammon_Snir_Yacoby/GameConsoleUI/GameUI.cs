@@ -108,11 +108,11 @@ namespace GameConsoleUI
             {
                 Console.WriteLine("Player one, press enter to roll dice");
                 Console.ReadLine();
-                rollOne = (int)playerOne.RollDice();
+                rollOne = playerOne.RollDice();
                 DrawDice(rollOne);
                 Console.WriteLine("Player two, press enter to roll dice");
                 Console.ReadLine();
-                rollTwo = (int)playerTwo.RollDice();
+                rollTwo = playerTwo.RollDice();
                 DrawDice(rollTwo);
                 if(rollOne == rollTwo)
                 {
@@ -200,7 +200,7 @@ namespace GameConsoleUI
             int dice;
             bool validInput;
 
-            Debug.WriteLine($"Player type: {player.Type}, eaten pieces: {player.EatenPieces}");
+            Debug.WriteLine($"In WaitForPlayerMove, Player type: {player.Type}, eaten pieces: {player.EatenPieces}");
             if(player.EatenPieces > 0)
             {
                 string input;
@@ -264,7 +264,7 @@ namespace GameConsoleUI
         {
             bool validInput;
 
-            Debug.WriteLine($"Player type: {player.Type}, eaten pieces: {player.EatenPieces}");
+            Debug.WriteLine($"In WaitForPlayerMove, Player type: {player.Type}, eaten pieces: {player.EatenPieces}");
             if (player.EatenPieces > 0)
             {
                 if (player.Type == ePlayerType.PlayerOne)
