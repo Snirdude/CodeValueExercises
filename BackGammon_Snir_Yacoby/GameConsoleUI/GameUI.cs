@@ -86,8 +86,8 @@ namespace GameConsoleUI
 
         public void ShowCannotPlayMessage()
         {
-            Console.WriteLine("Cannot play.");
-            Thread.Sleep(5000);
+            Console.WriteLine("Cannot play. Press enter to continue.");
+            Console.ReadLine();
         }
 
         public void PrintIllegalMoveMessage()
@@ -106,6 +106,8 @@ namespace GameConsoleUI
 
             do
             {
+                Console.WriteLine("Who goes first?");
+                Console.WriteLine();
                 Console.WriteLine("Player one, press enter to roll dice");
                 Console.ReadLine();
                 rollOne = playerOne.RollDice();
