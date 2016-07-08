@@ -121,7 +121,7 @@ namespace Rationals
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return Value.GetHashCode();
         }
 
         public static Rational operator + (Rational left, Rational right)
