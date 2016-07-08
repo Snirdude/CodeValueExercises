@@ -41,8 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameBoard.cs" />
+    <Compile Include="GameServices.cs" />
+    <Compile Include="HumanPlayer.cs" />
     <Compile Include="PieceOnBoard.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="BasePlayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

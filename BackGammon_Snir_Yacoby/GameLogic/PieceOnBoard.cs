@@ -8,10 +8,10 @@ namespace GameLogic
 {
     public struct PieceOnBoard
     {
-        public Player Player { get; private set; }
+        public BasePlayer Player { get; private set; }
         public int Count { get; private set; }
 
-        public PieceOnBoard(Player player = null, int count = 0)
+        public PieceOnBoard(BasePlayer player = null, int count = 0)
         {
             Player = player;
             Count = count;

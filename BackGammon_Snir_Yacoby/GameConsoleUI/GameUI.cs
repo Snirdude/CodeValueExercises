@@ -83,6 +83,12 @@ namespace GameConsoleUI
             Console.WriteLine("______________________________________");
         }
 
+        public void ShowCannotPlayMessage()
+        {
+            Console.WriteLine("Cannot play.");
+            Thread.Sleep(5000);
+        }
+
         public void PrintIllegalMoveMessage()
         {
             Console.WriteLine("Illegal move, try again");
@@ -93,7 +99,7 @@ namespace GameConsoleUI
             Console.WriteLine("Double! Play twice.");
         }
 
-        public bool RunOpeningSequence(Func<int> rollDice)
+        public bool RunOpeningSequence(BasePlayer playerOne, BasePlayer playerTwo)
         {
             int rollOne, rollTwo;
 
@@ -101,11 +107,11 @@ namespace GameConsoleUI
             {
                 Console.WriteLine("Player one, press enter to roll dice");
                 Console.ReadLine();
-                rollOne = (int)rollDice.DynamicInvoke();
+                rollOne = (int)playerOne.RollDice();
                 DrawDice(rollOne);
                 Console.WriteLine("Player two, press enter to roll dice");
                 Console.ReadLine();
-                rollTwo = (int)rollDice.DynamicInvoke();
+                rollTwo = (int)playerTwo.RollDice();
                 DrawDice(rollTwo);
                 if(rollOne == rollTwo)
                 {
@@ -173,7 +179,7 @@ namespace GameConsoleUI
             return piece;
         }
 
-        public bool WaitForPlayerMove(Player player, int rollOne, int rollTwo, out int row, out int col)
+        public bool WaitForPlayerMove(BasePlayer player, int rollOne, int rollTwo, out int row, out int col)
         {
             int dice;
             bool validInput;
@@ -237,7 +243,7 @@ namespace GameConsoleUI
             return dice == 1;
         }
 
-        public void WaitForPlayerMove(Player player, out int row, out int col)
+        public void WaitForPlayerMove(BasePlayer player, out int row, out int col)
         {
             bool validInput;
 

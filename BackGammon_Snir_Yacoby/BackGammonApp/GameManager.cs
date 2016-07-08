@@ -11,8 +11,8 @@ namespace BackGammonApp
     class GameManager
     {
         private GameUI gameUI = new GameUI();
-        private Player playerOne = new Player(ePlayerType.PlayerOne);
-        private Player playerTwo = new Player(ePlayerType.PlayerTwo);
+        private BasePlayer playerOne = new HumanPlayer(ePlayerType.PlayerOne);
+        private BasePlayer playerTwo = new HumanPlayer(ePlayerType.PlayerTwo);
         private GameBoard gameBoard;
 
         public GameManager()
@@ -23,15 +23,21 @@ namespace BackGammonApp
         public void Run()
         {
             bool playerOneFirst, isDouble;
+            BasePlayer currentPlayer;
 
-            playerOneFirst = gameUI.RunOpeningSequence(gameBoard.RollDice);
+            playerOneFirst = gameUI.RunOpeningSequence(playerOne, playerTwo);
             while (!gameBoard.HasGameEnded)
             {
                 gameUI.ClearScreen();
                 gameUI.DrawBoard(gameBoard.Board, playerOne.EatenPieces, playerTwo.EatenPieces);
                 gameUI.PromptUserForRolls(playerOneFirst);
-                int[] dices = gameBoard.RollDices(out isDouble);
+                currentPlayer = playerOneFirst ? playerOne : playerTwo;
+                int[] dices = currentPlayer.RollDices(out isDouble);
                 gameUI.DrawDices(dices[0], dices[1]);
+                if(!gameBoard.CheckForAnyLegalMoves(currentPlayer, dices, isDouble))
+                {
+                    gameUI.ShowCannotPlayMessage();
+                }
                 if (isDouble)
                 {
                     gameUI.PrintDoubleMessage();
@@ -42,6 +48,7 @@ namespace BackGammonApp
                     MakeMoves(dices, playerOneFirst);
                 }
                 
+                gameBoard.CheckForWinners();
                 playerOneFirst = !playerOneFirst;
             }
         }
@@ -50,7 +57,7 @@ namespace BackGammonApp
         {
             int row, col;
             bool legalMove;
-            Player player;
+            BasePlayer player;
 
             if (playerOneFirst)
             {
@@ -64,15 +71,7 @@ namespace BackGammonApp
             do
             {
                 gameUI.WaitForPlayerMove(player, out row, out col);
-                if (playerOneFirst)
-                {
-                    legalMove = gameBoard.MakeMove(playerOne, dices[0], row, col); 
-                }
-                else
-                {
-                    legalMove = gameBoard.MakeMove(playerTwo, dices[0], row, col);
-                }
-                
+                legalMove = player.MakeMove(gameBoard.Board, dices[0], row, col);
                 if(!legalMove)
                 {
                     gameUI.PrintIllegalMoveMessage();
@@ -86,15 +85,7 @@ namespace BackGammonApp
                 {
                     gameUI.DrawBoard(gameBoard.Board, playerOne.EatenPieces, playerTwo.EatenPieces);
                     gameUI.WaitForPlayerMove(player, out row, out col);
-                    if (playerOneFirst)
-                    {
-                        legalMove = gameBoard.MakeMove(playerOne, dices[0], row, col);
-                    }
-                    else
-                    {
-                        legalMove = gameBoard.MakeMove(playerTwo, dices[0], row, col);
-                    }
-
+                    legalMove = player.MakeMove(gameBoard.Board, dices[0], row, col);
                     if (!legalMove)
                     {
                         gameUI.PrintIllegalMoveMessage();
@@ -108,7 +99,7 @@ namespace BackGammonApp
         {
             int row, col;
             bool legalMove, firstDiceSelected;
-            Player player;
+            BasePlayer player;
 
             if(playerOneFirst)
             {
@@ -122,27 +113,13 @@ namespace BackGammonApp
             do
             {
                 firstDiceSelected = gameUI.WaitForPlayerMove(player, dices[0], dices[1], out row, out col);
-                if (playerOneFirst)
+                if (firstDiceSelected)
                 {
-                    if (firstDiceSelected)
-                    {
-                        legalMove = gameBoard.MakeMove(playerOne, dices[0], row, col);
-                    }
-                    else
-                    {
-                        legalMove = gameBoard.MakeMove(playerOne, dices[1], row, col);
-                    }
+                    legalMove = player.MakeMove(gameBoard.Board, dices[0], row, col);
                 }
                 else
                 {
-                    if (firstDiceSelected)
-                    {
-                        legalMove = gameBoard.MakeMove(playerTwo, dices[0], row, col);
-                    }
-                    else
-                    {
-                        legalMove = gameBoard.MakeMove(playerTwo, dices[1], row, col);
-                    }
+                    legalMove = player.MakeMove(gameBoard.Board, dices[1], row, col);
                 }
 
                 if (!legalMove)
@@ -160,22 +137,22 @@ namespace BackGammonApp
                 {
                     if (!firstDiceSelected)
                     {
-                        legalMove &= gameBoard.MakeMove(playerOne, dices[0], row, col);
+                        legalMove = player.MakeMove(gameBoard.Board, dices[0], row, col);
                     }
                     else
                     {
-                        legalMove &= gameBoard.MakeMove(playerOne, dices[1], row, col);
+                        legalMove = player.MakeMove(gameBoard.Board, dices[1], row, col);
                     }
                 }
                 else
                 {
                     if (!firstDiceSelected)
                     {
-                        legalMove &= gameBoard.MakeMove(playerTwo, dices[0], row, col);
+                        legalMove = player.MakeMove(gameBoard.Board, dices[0], row, col);
                     }
                     else
                     {
-                        legalMove &= gameBoard.MakeMove(playerTwo, dices[1], row, col);
+                        legalMove = player.MakeMove(gameBoard.Board, dices[1], row, col);
                     }
                 }
 

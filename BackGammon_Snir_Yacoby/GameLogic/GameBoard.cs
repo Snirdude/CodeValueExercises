@@ -9,11 +9,11 @@ namespace GameLogic
 {
     public class GameBoard
     {
-        private Player playerOne, playerTwo;
+        private BasePlayer playerOne, playerTwo;
         public PieceOnBoard[,] Board { get; private set; } = new PieceOnBoard[2, 12];
         public bool HasGameEnded { get; private set; } = false;
 
-        public GameBoard(Player playerOne, Player playerTwo)
+        public GameBoard(BasePlayer playerOne, BasePlayer playerTwo)
         {
             this.playerOne = playerOne;
             this.playerTwo = playerTwo;
@@ -27,222 +27,86 @@ namespace GameLogic
             Board[1, 0] = new PieceOnBoard(playerTwo, 2);
         }
 
-        public int RollDice()
+        public void CheckForWinners()
         {
-            return new Random().Next(1, 6);
+            HasGameEnded = playerOne.CheckWinner() || playerTwo.CheckWinner();
         }
 
-        public int[] RollDices(out bool isDouble)
+        public bool CheckForAnyLegalMoves(BasePlayer player, int[] dices, bool isDouble)
         {
-            int[] dices = new int[2];
-            Random roller = new Random();
+            int legalMovesCount = 0;
+            PieceOnBoard[,] boardSimulator = (PieceOnBoard[,])Board.Clone();
+            bool answer = false, legalMove;
 
-            dices[0] = roller.Next(1, 6);
-            dices[1] = roller.Next(1, 6);
-            isDouble = dices[0] == dices[1];
-
-            return dices;
-        }
-
-        public bool MakeMove(Player player, int roll, int fromRow, int fromCol)
-        {
-            bool isLegal;
-
-            if (player.EatenPieces > 0)
+            if (!isDouble)
             {
-                isLegal = CheckMoveLegality(player, roll);
-                if (isLegal)
+                legalMove = CheckForOneLegalMove(boardSimulator, player, dices[0]);
+                if (legalMove)
                 {
-                    if(player.Type == ePlayerType.PlayerOne)
-                    {
-                        MovePiece(player, roll, 0, -1);
-                    }
-                    else
-                    {
-                        MovePiece(player, roll, 1, -1);
-                    }
+                    legalMovesCount++;
+                }
+
+                legalMove = CheckForOneLegalMove(boardSimulator, player, dices[1]);
+                if (legalMovesCount == 1 && legalMove)
+                {
+                    legalMovesCount++;
+                }
+
+                if (legalMovesCount == 1 && legalMove)
+                {
+                    legalMove = CheckForOneLegalMove(boardSimulator, player, dices[0]);
+                    legalMovesCount++;
+                }
+
+                if (legalMovesCount == 2)
+                {
+                    answer = true;
                 }
             }
             else
             {
-                fromRow--;
-                fromCol--;
-                isLegal = CheckMoveLegality(player, roll, fromRow, fromCol);
-                if (isLegal)
+                for (int i = 0; i < 4; i++)
                 {
-                    MovePiece(player, roll, fromRow, fromCol);
-                    HasGameEnded = CheckForWinners();
-                }
-            }
-
-            return isLegal;
-        }
-
-        private bool CheckForWinners()
-        {
-            return playerOne.CheckWinner() || playerTwo.CheckWinner();
-        }
-
-        private void MovePiece(Player player, int roll, int rowIndex, int colIndex)
-        {
-            if(colIndex != -1)
-            {
-                Board[rowIndex, colIndex].ChangeCount(false);
-            }
-            else
-            {
-                player.Saved();
-            }
-
-            ChangeIndexes(player, roll, ref rowIndex, ref colIndex);
-
-            if(colIndex < 0) // Player is clearing pieces
-            {
-                player.Cleared();
-            }
-            else if (Board[rowIndex, colIndex].Count != 0 && Board[rowIndex, colIndex].Player.Type != player.Type) // Player is eating other player's piece
-            {
-                Board[rowIndex, colIndex].Player.Eaten();
-                Board[rowIndex, colIndex] = new PieceOnBoard(player, 1);
-            }
-            else if (Board[rowIndex, colIndex].Count != 0) // There are pieces of the player
-            {
-                Board[rowIndex, colIndex].ChangeCount(true);
-            }
-            else  // No pieces there
-            {
-                Board[rowIndex, colIndex] = new PieceOnBoard(player, 1);
-            }
-        }
-
-        //Calculating indexes after roll of the dice
-        private void ChangeIndexes(Player player, int roll, ref int rowIndex, ref int colIndex)
-        {
-            Debug.WriteLine($"Player: {player.Type}");
-            Debug.WriteLine($"Roll: {roll}");
-            Debug.WriteLine($"Indexes before change: row {rowIndex}, col {colIndex}");
-            if(player.Type == ePlayerType.PlayerOne)
-            {
-                if(rowIndex == 0)
-                {
-                    if(colIndex + roll > 11)
+                    if (CheckForOneLegalMove(boardSimulator, player, dices[0]))
                     {
-                        colIndex = 11 - (colIndex + roll) % 12;
-                        rowIndex++;
-                    }
-                    else
-                    {
-                        colIndex += roll;
+                        legalMovesCount++;
                     }
                 }
-                else
+
+                if (legalMovesCount == 4)
                 {
-                    colIndex -= roll;
+                    answer = true;
                 }
             }
-            else
+
+            return answer;
+        }
+
+        private bool CheckForOneLegalMove(PieceOnBoard[,] board, BasePlayer player, int roll)
+        {
+            bool legalMove = false;
+
+            for (int i = 1; i <= 2; i++)
             {
-                if (rowIndex == 1)
+                for (int j = 1; j <= 12; j++)
                 {
-                    if (colIndex + roll > 11)
+                    if (board[i - 1, j - 1].Player == player)
                     {
-                        colIndex = 11 - (colIndex + roll) % 12;
-                        rowIndex--;
-                    }
-                    else
-                    {
-                        colIndex += roll;
+                        legalMove = player.MakeMove(board, roll, i, j);
+                        if (legalMove)
+                        {
+                            break;
+                        }
                     }
                 }
-                else
+
+                if (legalMove)
                 {
-                    colIndex -= roll;
+                    break;
                 }
             }
 
-            Debug.WriteLine($"Indexes after change: row {rowIndex}, col {colIndex}");
-        }
-
-        //For eaten pieces
-        private bool CheckMoveLegality(Player player, int roll)
-        {
-            bool isLegal;
-            PieceOnBoard piece;
-
-            if(player.Type == ePlayerType.PlayerOne)
-            {
-                piece = Board[0, roll];
-            }
-            else
-            {
-                piece = Board[1, roll];
-            }
-
-            isLegal = piece.Count == 0;
-            isLegal |= piece.Player?.Type == player.Type;
-            isLegal |= piece.Player?.Type != player.Type && piece.Count == 1;
-
-            Debug.WriteLine($"Eaten check move legality: {isLegal}");
-
-            return isLegal;
-        }
-
-        //For uneaten pieces
-        private bool CheckMoveLegality(Player player, int roll, int rowIndex, int colIndex)
-        {
-            bool isLegal;
-
-            isLegal = CheckPieceExists(rowIndex, colIndex);
-            isLegal &= CheckPlayerMatch(player, rowIndex, colIndex);
-            isLegal &= CheckValidTargetSpace(player, roll, rowIndex, colIndex);
-
-            return isLegal;
-        }
-
-        private bool CheckValidTargetSpace(Player player, int roll, int rowIndex, int colIndex)
-        {
-            bool isValid, subValid;
-            PieceOnBoard piece;
-
-            ChangeIndexes(player, roll, ref rowIndex, ref colIndex);
-            if (player.ReadyToClear)
-            {
-                isValid = !(rowIndex > 1 || rowIndex < 0 || colIndex > 11 || colIndex < -6);
-            }
-            else
-            {
-                isValid = !(rowIndex > 1 || rowIndex < 0 || colIndex > 11 || colIndex < 0);
-            }
-
-            if(colIndex >= 0)
-            {
-                piece = Board[rowIndex, colIndex];
-                subValid = piece.Count == 0;
-                subValid |= piece.Player?.Type == player.Type;
-                subValid |= piece.Player?.Type != player.Type && piece.Count == 1;
-                isValid &= subValid;
-            }
-
-            Debug.WriteLine($"Valid target space: {isValid}");
-            return isValid;
-        }
-
-        private bool CheckPlayerMatch(Player player, int rowIndex, int colIndex)
-        {
-            bool match = Board[rowIndex, colIndex].Player.Type == player.Type;
-
-            Debug.WriteLine($"Check player match: {match}");
-
-            return match;
-        }
-
-        private bool CheckPieceExists(int rowIndex, int colIndex)
-        {
-            bool pieceExists = Board[rowIndex, colIndex].Count > 0;
-
-            Debug.WriteLine($"Check piece exists: {pieceExists}");
-
-            return pieceExists;
+            return legalMove;
         }
     }
 }
