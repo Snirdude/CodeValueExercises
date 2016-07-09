@@ -84,6 +84,21 @@ namespace GameConsoleUI
             Console.WriteLine("______________________________________");
         }
 
+        public void PrintWinnerMessage(BasePlayer player)
+        {
+            if(player.Type == ePlayerType.PlayerOne)
+            {
+                Console.WriteLine("Blue wins!");
+            }
+            else
+            {
+                Console.WriteLine("Red wins!");
+            }
+
+            Console.WriteLine("Thanks for playing!");
+            Thread.Sleep(8000);
+        }
+
         public void ShowCannotPlayMessage()
         {
             Console.WriteLine("Cannot play. Press enter to continue.");

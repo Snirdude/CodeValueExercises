@@ -50,12 +50,19 @@ namespace BackGammonApp
                         MakeMoves(dices, playerOneFirst);
                     }
 
-                    
-
                     gameBoard.CheckForWinners();
                 }
 
                 playerOneFirst = !playerOneFirst;
+            }
+
+            if (playerOne.CheckWinner())
+            {
+                gameUI.PrintWinnerMessage(playerOne);
+            }
+            else
+            {
+                gameUI.PrintWinnerMessage(playerTwo);
             }
         }
 
