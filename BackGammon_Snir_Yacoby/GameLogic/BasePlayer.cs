@@ -90,7 +90,7 @@ namespace GameLogic
                 Saved();
             }
 
-            GameServices.ChangeIndexes(this, roll, ref rowIndex, ref colIndex);
+            ChangeIndexes(roll, ref rowIndex, ref colIndex);
 
             if (colIndex < 0) // Player is clearing pieces
             {
@@ -152,7 +152,7 @@ namespace GameLogic
             bool isValid, subValid;
             PieceOnBoard piece;
 
-            GameServices.ChangeIndexes(this, roll, ref rowIndex, ref colIndex);
+            ChangeIndexes(roll, ref rowIndex, ref colIndex);
             if (ReadyToClear)
             {
                 isValid = !(rowIndex > 1 || rowIndex < 0 || colIndex > 11 || colIndex < -6);
@@ -204,6 +204,54 @@ namespace GameLogic
             equals &= ReadyToClear == other.ReadyToClear;
 
             return equals;
+        }
+
+        //Calculating indexes after roll of the dice
+        private void ChangeIndexes(int roll, ref int rowIndex, ref int colIndex)
+        {
+            Debug.WriteLine($"Player: {Type}");
+            Debug.WriteLine($"Roll: {roll}");
+            Debug.WriteLine($"Indexes before change: row {rowIndex}, col {colIndex}");
+            if (Type == ePlayerType.PlayerOne)
+            {
+                if (rowIndex == 0)
+                {
+                    if (colIndex + roll > 11)
+                    {
+                        colIndex = 11 - (colIndex + roll) % 12;
+                        rowIndex++;
+                    }
+                    else
+                    {
+                        colIndex += roll;
+                    }
+                }
+                else
+                {
+                    colIndex -= roll;
+                }
+            }
+            else
+            {
+                if (rowIndex == 1)
+                {
+                    if (colIndex + roll > 11)
+                    {
+                        colIndex = 11 - (colIndex + roll) % 12;
+                        rowIndex--;
+                    }
+                    else
+                    {
+                        colIndex += roll;
+                    }
+                }
+                else
+                {
+                    colIndex -= roll;
+                }
+            }
+
+            Debug.WriteLine($"Indexes after change: row {rowIndex}, col {colIndex}");
         }
     }
 }
