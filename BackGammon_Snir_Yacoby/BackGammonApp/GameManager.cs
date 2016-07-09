@@ -50,14 +50,7 @@ namespace BackGammonApp
                         MakeMoves(dices, playerOneFirst);
                     }
 
-                    if (gameBoard.CheckIfPlayerCanStartClearing(currentPlayer))
-                    {
-                        currentPlayer.CanStartClearing();
-                    }
-                    else
-                    {
-                        currentPlayer.StopClearing();
-                    }
+                    
 
                     gameBoard.CheckForWinners();
                 }
@@ -92,7 +85,16 @@ namespace BackGammonApp
             }
             while (!legalMove);
 
-            for(int i = 0; i < 3; i++)
+            if (gameBoard.CheckIfPlayerCanStartClearing(player))
+            {
+                player.CanStartClearing();
+            }
+            else
+            {
+                player.StopClearing();
+            }
+
+            for (int i = 0; i < 3; i++)
             {
                 do
                 {
@@ -105,6 +107,15 @@ namespace BackGammonApp
                     }
                 }
                 while (!legalMove);
+
+                if (gameBoard.CheckIfPlayerCanStartClearing(player))
+                {
+                    player.CanStartClearing();
+                }
+                else
+                {
+                    player.StopClearing();
+                }
             }
         }
 
@@ -142,6 +153,15 @@ namespace BackGammonApp
             }
             while (!legalMove);
 
+            if (gameBoard.CheckIfPlayerCanStartClearing(player))
+            {
+                player.CanStartClearing();
+            }
+            else
+            {
+                player.StopClearing();
+            }
+
             gameUI.DrawBoard(gameBoard.Board, playerOne.EatenPieces, playerTwo.EatenPieces);
             do
             {
@@ -175,6 +195,15 @@ namespace BackGammonApp
                 }
             }
             while (!legalMove);
+
+            if (gameBoard.CheckIfPlayerCanStartClearing(player))
+            {
+                player.CanStartClearing();
+            }
+            else
+            {
+                player.StopClearing();
+            }
         }
     }
 }

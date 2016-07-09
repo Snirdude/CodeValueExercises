@@ -290,9 +290,18 @@ namespace GameConsoleUI
                 Console.WriteLine("Available columns: 1-12");
                 do
                 {
-                    Console.WriteLine("Enter row and column (all seperated by commas):");
-                    input = Console.ReadLine().Trim().Split(',');
-                    validInput = input.Length == 2;
+                    do
+                    {
+                        Console.WriteLine("Enter row and column (all seperated by commas):");
+                        input = Console.ReadLine().Trim().Split(',');
+                        validInput = input.Length == 2;
+                        if (!validInput)
+                        {
+                            Console.WriteLine("Invalid input");
+                        }
+                    }
+                    while (!validInput);
+                    
                     validInput &= int.TryParse(input[0], out row);
                     validInput &= int.TryParse(input[1], out col);
                     if (!validInput)
