@@ -1,8 +1,0 @@
-c:\users\snir\documents\visual studio 2015\Projects\Shapes\ShapesApp\bin\Debug\ShapesApp.exe.config
-c:\users\snir\documents\visual studio 2015\Projects\Shapes\ShapesApp\bin\Debug\ShapesApp.exe
-c:\users\snir\documents\visual studio 2015\Projects\Shapes\ShapesApp\bin\Debug\ShapesApp.pdb
-c:\users\snir\documents\visual studio 2015\Projects\Shapes\ShapesApp\bin\Debug\ShapeLib.dll
-c:\users\snir\documents\visual studio 2015\Projects\Shapes\ShapesApp\bin\Debug\ShapeLib.pdb
-c:\users\snir\documents\visual studio 2015\Projects\Shapes\ShapesApp\obj\Debug\ShapesApp.csprojResolveAssemblyReference.cache
-c:\users\snir\documents\visual studio 2015\Projects\Shapes\ShapesApp\obj\Debug\ShapesApp.exe
-c:\users\snir\documents\visual studio 2015\Projects\Shapes\ShapesApp\obj\Debug\ShapesApp.pdb

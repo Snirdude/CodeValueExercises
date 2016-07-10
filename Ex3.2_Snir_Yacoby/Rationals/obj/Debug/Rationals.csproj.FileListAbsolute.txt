@@ -1,6 +1,0 @@
-c:\users\snir\documents\visual studio 2015\Projects\Ex3.2_Snir_Yacoby\Rationals\bin\Debug\Rationals.exe.config
-c:\users\snir\documents\visual studio 2015\Projects\Ex3.2_Snir_Yacoby\Rationals\bin\Debug\Rationals.exe
-c:\users\snir\documents\visual studio 2015\Projects\Ex3.2_Snir_Yacoby\Rationals\bin\Debug\Rationals.pdb
-c:\users\snir\documents\visual studio 2015\Projects\Ex3.2_Snir_Yacoby\Rationals\obj\Debug\Rationals.csprojResolveAssemblyReference.cache
-c:\users\snir\documents\visual studio 2015\Projects\Ex3.2_Snir_Yacoby\Rationals\obj\Debug\Rationals.exe
-c:\users\snir\documents\visual studio 2015\Projects\Ex3.2_Snir_Yacoby\Rationals\obj\Debug\Rationals.pdb

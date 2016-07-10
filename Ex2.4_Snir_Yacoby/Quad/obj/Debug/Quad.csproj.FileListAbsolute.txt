@@ -1,5 +1,0 @@
-c:\users\snir\documents\visual studio 2015\Projects\Ex2.4_Snir_Yacoby\Quad\bin\Debug\Quad.exe.config
-c:\users\snir\documents\visual studio 2015\Projects\Ex2.4_Snir_Yacoby\Quad\bin\Debug\Quad.exe
-c:\users\snir\documents\visual studio 2015\Projects\Ex2.4_Snir_Yacoby\Quad\bin\Debug\Quad.pdb
-c:\users\snir\documents\visual studio 2015\Projects\Ex2.4_Snir_Yacoby\Quad\obj\Debug\Quad.exe
-c:\users\snir\documents\visual studio 2015\Projects\Ex2.4_Snir_Yacoby\Quad\obj\Debug\Quad.pdb

@@ -1,5 +1,0 @@
-c:\users\snir\documents\visual studio 2015\Projects\Ex2.2_Snir_Yacoby\Calculator\bin\Debug\Calculator.exe.config
-c:\users\snir\documents\visual studio 2015\Projects\Ex2.2_Snir_Yacoby\Calculator\bin\Debug\Calculator.exe
-c:\users\snir\documents\visual studio 2015\Projects\Ex2.2_Snir_Yacoby\Calculator\bin\Debug\Calculator.pdb
-c:\users\snir\documents\visual studio 2015\Projects\Ex2.2_Snir_Yacoby\Calculator\obj\Debug\Calculator.exe
-c:\users\snir\documents\visual studio 2015\Projects\Ex2.2_Snir_Yacoby\Calculator\obj\Debug\Calculator.pdb

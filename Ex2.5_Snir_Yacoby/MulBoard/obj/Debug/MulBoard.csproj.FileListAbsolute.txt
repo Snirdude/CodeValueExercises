@@ -1,5 +1,0 @@
-c:\users\snir\documents\visual studio 2015\Projects\Ex2.5_Snir_Yacoby\MulBoard\bin\Debug\MulBoard.exe.config
-c:\users\snir\documents\visual studio 2015\Projects\Ex2.5_Snir_Yacoby\MulBoard\bin\Debug\MulBoard.exe
-c:\users\snir\documents\visual studio 2015\Projects\Ex2.5_Snir_Yacoby\MulBoard\bin\Debug\MulBoard.pdb
-c:\users\snir\documents\visual studio 2015\Projects\Ex2.5_Snir_Yacoby\MulBoard\obj\Debug\MulBoard.exe
-c:\users\snir\documents\visual studio 2015\Projects\Ex2.5_Snir_Yacoby\MulBoard\obj\Debug\MulBoard.pdb
