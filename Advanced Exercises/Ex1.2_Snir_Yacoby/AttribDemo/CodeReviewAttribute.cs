@@ -9,7 +9,7 @@ namespace AttribDemo
     [System.AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct, Inherited = false, AllowMultiple = true)]
     sealed class CodeReviewAttribute : Attribute
     {
-        public CodeReviewAttribute(string reviewerName, DateTime reviewDate, bool isApproved)
+        public CodeReviewAttribute(string reviewerName, string reviewDate, bool isApproved)
         {
             ReviewerName = reviewerName;
             ReviewDate = reviewDate;
@@ -17,7 +17,7 @@ namespace AttribDemo
         }
 
         public string ReviewerName { get; private set; }
-        public DateTime ReviewDate { get; private set; }
+        public string ReviewDate { get; private set; }
         public bool Approved { get; private set; }
         
     }
