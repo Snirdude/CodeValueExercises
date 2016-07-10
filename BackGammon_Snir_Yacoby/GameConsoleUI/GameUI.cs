@@ -268,7 +268,14 @@ namespace GameConsoleUI
                     validInput &= int.TryParse(input[0], out dice);
                     validInput &= int.TryParse(input[1], out row);
                     validInput &= int.TryParse(input[2], out col);
-                    if (!(validInput && (dice == 1 || dice == 2)))
+                    if (validInput)
+                    {
+                        validInput &= dice == 1 || dice == 2;
+                        validInput &= row == 1 || row == 2;
+                        validInput &= col >= 1 && col <= 12;
+                    }
+
+                    if (!validInput)
                     {
                         Console.WriteLine("Invalid input");
                     }
@@ -319,6 +326,12 @@ namespace GameConsoleUI
                     
                     validInput &= int.TryParse(input[0], out row);
                     validInput &= int.TryParse(input[1], out col);
+                    if (validInput)
+                    {
+                        validInput &= row == 1 || row == 2;
+                        validInput &= col >= 1 || col <= 12;
+                    }
+
                     if (!validInput)
                     {
                         Console.WriteLine("Invalid input");
