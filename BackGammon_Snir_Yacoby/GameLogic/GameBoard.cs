@@ -17,14 +17,18 @@ namespace GameLogic
         {
             this.playerOne = playerOne;
             this.playerTwo = playerTwo;
-            Board[0, 0] = new PieceOnBoard(playerOne, 2);
+            Board[0, 0] = new PieceOnBoard(playerTwo, 14);
+            Board[1, 0] = new PieceOnBoard(playerOne, 14);
+            Board[1, 6] = new PieceOnBoard(playerOne, 1);
+            Board[0, 6] = new PieceOnBoard(playerTwo, 1);
+            /*Board[0, 0] = new PieceOnBoard(playerOne, 2);
             Board[0, 5] = new PieceOnBoard(playerTwo, 5);
             Board[0, 7] = new PieceOnBoard(playerTwo, 3);
             Board[0, 11] = new PieceOnBoard(playerOne, 5);
             Board[1, 11] = new PieceOnBoard(playerTwo, 5);
             Board[1, 7] = new PieceOnBoard(playerOne, 3);
             Board[1, 5] = new PieceOnBoard(playerOne, 5);
-            Board[1, 0] = new PieceOnBoard(playerTwo, 2);
+            Board[1, 0] = new PieceOnBoard(playerTwo, 2);*/
         }
 
         public void CheckForWinners()
@@ -50,19 +54,25 @@ namespace GameLogic
                 legalMove = CheckForOneLegalMove(boardSimulator, playerSimulator, dices[0]);
                 if (legalMove)
                 {
+                    playerSimulator.CheckAndSetIfCanStartClearing(boardSimulator);
                     legalMovesCount++;
                 }
 
                 legalMove = CheckForOneLegalMove(boardSimulator, playerSimulator, dices[1]);
-                if (legalMovesCount == 1 && legalMove)
+                if (legalMove)
                 {
+                    playerSimulator.CheckAndSetIfCanStartClearing(boardSimulator);
                     legalMovesCount++;
                 }
 
                 if (legalMovesCount == 1 && legalMove)
                 {
                     legalMove = CheckForOneLegalMove(boardSimulator, playerSimulator, dices[0]);
-                    legalMovesCount++;
+                    if (legalMove)
+                    {
+                        playerSimulator.CheckAndSetIfCanStartClearing(boardSimulator);
+                        legalMovesCount++;
+                    }
                 }
 
                 Debug.WriteLine($"legalMovesCount = {legalMovesCount}");
@@ -78,6 +88,7 @@ namespace GameLogic
                 {
                     if (CheckForOneLegalMove(boardSimulator, playerSimulator, dices[0]))
                     {
+                        playerSimulator.CheckAndSetIfCanStartClearing(boardSimulator);
                         legalMovesCount++;
                     }
                 }
@@ -86,6 +97,11 @@ namespace GameLogic
                 {
                     answer = true;
                 }
+            }
+
+            if (playerSimulator.CheckWinner())
+            {
+                answer = true;
             }
 
             return answer;
@@ -99,7 +115,14 @@ namespace GameLogic
             Debug.WriteLine($"In CheckForOneLegalMove, eaten pieces: {player.EatenPieces}");
             if(player.EatenPieces > 0)
             {
-                legalMove = player.MakeMove(board, roll);
+                if(player.Type == ePlayerType.PlayerOne)
+                {
+                    legalMove = player.MakeMove(board, roll, 1, 0);
+                }
+                else
+                {
+                    legalMove = player.MakeMove(board, roll, 2, 0);
+                }
             }
             else
             {

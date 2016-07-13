@@ -302,7 +302,7 @@ namespace GameConsoleUI
                     row = 2;
                 }
 
-                col = -1;
+                col = 0;
             }
             else
             {
