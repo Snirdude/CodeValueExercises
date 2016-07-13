@@ -17,18 +17,18 @@ namespace GameLogic
         {
             this.playerOne = playerOne;
             this.playerTwo = playerTwo;
-            Board[0, 0] = new PieceOnBoard(playerTwo, 14);
+            /*Board[0, 0] = new PieceOnBoard(playerTwo, 14);
             Board[1, 0] = new PieceOnBoard(playerOne, 14);
             Board[1, 6] = new PieceOnBoard(playerOne, 1);
-            Board[0, 6] = new PieceOnBoard(playerTwo, 1);
-            /*Board[0, 0] = new PieceOnBoard(playerOne, 2);
+            Board[0, 6] = new PieceOnBoard(playerTwo, 1);*/
+            Board[0, 0] = new PieceOnBoard(playerOne, 2);
             Board[0, 5] = new PieceOnBoard(playerTwo, 5);
             Board[0, 7] = new PieceOnBoard(playerTwo, 3);
             Board[0, 11] = new PieceOnBoard(playerOne, 5);
             Board[1, 11] = new PieceOnBoard(playerTwo, 5);
             Board[1, 7] = new PieceOnBoard(playerOne, 3);
             Board[1, 5] = new PieceOnBoard(playerOne, 5);
-            Board[1, 0] = new PieceOnBoard(playerTwo, 2);*/
+            Board[1, 0] = new PieceOnBoard(playerTwo, 2);
         }
 
         public void CheckForWinners()
