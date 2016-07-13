@@ -24,25 +24,15 @@ namespace GameLogic
             if (EatenPieces > 0)
             {
                 isLegal = CheckMoveLegality(board, roll);
-                if (isLegal)
-                {
-                    if (Type == ePlayerType.PlayerOne)
-                    {
-                        MovePiece(board, roll, fromRow, fromCol);
-                    }
-                    else
-                    {
-                        MovePiece(board, roll, fromRow, fromCol);
-                    }
-                }
             }
             else
             {
                 isLegal = CheckMoveLegality(board, roll, fromRow, fromCol);
-                if (isLegal)
-                {
-                    MovePiece(board, roll, fromRow, fromCol);
-                }
+            }
+
+            if (isLegal)
+            {
+                MovePiece(board, roll, fromRow, fromCol);
             }
 
             return isLegal;
