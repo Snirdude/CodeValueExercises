@@ -144,58 +144,5 @@ namespace GameLogic
 
             return copy;
         }
-
-        public bool CheckIfPlayerCanStartClearing(BasePlayer player)
-        {
-            bool AllPiecesInExtractionPoint = true;
-
-            if (player.Type == ePlayerType.PlayerOne)
-            {
-                for (int j = 0; j < 12; j++)
-                {
-                    if(Board[0,j].Count != 0 && Board[0,j].Player.Type == player.Type)
-                    {
-                        AllPiecesInExtractionPoint = false;
-                        break;
-                    }
-                }
-                
-                for(int j = 6; j < 12; j++)
-                {
-                    if (Board[1, j].Count != 0 && Board[1, j].Player.Type == player.Type)
-                    {
-                        AllPiecesInExtractionPoint = false;
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                for (int j = 0; j < 12; j++)
-                {
-                    if (Board[1, j].Count != 0 && Board[1, j].Player.Type == player.Type)
-                    {
-                        AllPiecesInExtractionPoint = false;
-                        break;
-                    }
-                }
-
-                for (int j = 6; j < 12; j++)
-                {
-                    if (Board[0, j].Count != 0 && Board[0, j].Player.Type == player.Type)
-                    {
-                        AllPiecesInExtractionPoint = false;
-                        break;
-                    }
-                }
-            }
-
-            if (player.EatenPieces > 0)
-            {
-                AllPiecesInExtractionPoint = false;
-            }
-
-            return AllPiecesInExtractionPoint;
-        }
     }
 }

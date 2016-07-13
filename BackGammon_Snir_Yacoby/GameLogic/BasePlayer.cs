@@ -253,5 +253,67 @@ namespace GameLogic
 
             Debug.WriteLine($"Indexes after change: row {rowIndex}, col {colIndex}");
         }
+
+        public void CheckAndSetIfCanStartClearing(PieceOnBoard[,] board)
+        {
+            bool AllPiecesInExtractionPoint = true;
+
+            if (EatenPieces > 0)
+            {
+                AllPiecesInExtractionPoint = false;
+            }
+            else
+            {
+                if (Type == ePlayerType.PlayerOne)
+                {
+                    for (int j = 0; j < 12; j++)
+                    {
+                        if (board[0, j].Count != 0 && board[0, j].Player.Type == player.Type)
+                        {
+                            AllPiecesInExtractionPoint = false;
+                            break;
+                        }
+                    }
+
+                    for (int j = 6; j < 12; j++)
+                    {
+                        if (board[1, j].Count != 0 && board[1, j].Player.Type == Type)
+                        {
+                            AllPiecesInExtractionPoint = false;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    for (int j = 0; j < 12; j++)
+                    {
+                        if (board[1, j].Count != 0 && board[1, j].Player.Type == Type)
+                        {
+                            AllPiecesInExtractionPoint = false;
+                            break;
+                        }
+                    }
+
+                    for (int j = 6; j < 12; j++)
+                    {
+                        if (board[0, j].Count != 0 && board[0, j].Player.Type == Type)
+                        {
+                            AllPiecesInExtractionPoint = false;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (AllPiecesInExtractionPoint)
+            {
+                CanStartClearing();
+            }
+            else
+            {
+                StopClearing();
+            }
+        }
     }
 }

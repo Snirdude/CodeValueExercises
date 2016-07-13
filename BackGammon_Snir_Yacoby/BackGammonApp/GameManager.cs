@@ -31,9 +31,12 @@ namespace BackGammonApp
                 gameUI.ClearScreen();
                 gameUI.DrawBoard(gameBoard.Board, playerOne.EatenPieces, playerTwo.EatenPieces);
                 gameUI.PromptUserForRolls(playerOneFirst);
+
                 currentPlayer = playerOneFirst ? playerOne : playerTwo;
+
                 int[] dices = currentPlayer.RollDices(out isDouble);
                 gameUI.DrawDices(dices[0], dices[1]);
+
                 if(!gameBoard.CheckForAnyLegalMoves(currentPlayer, dices, isDouble))
                 {
                     gameUI.ShowCannotPlayMessage();
@@ -43,11 +46,11 @@ namespace BackGammonApp
                     if (isDouble)
                     {
                         gameUI.PrintDoubleMessage();
-                        MakeDoubleMoves(dices, playerOneFirst);
+                        MakeDoubleMoves(dices, currentPlayer);
                     }
                     else
                     {
-                        MakeMoves(dices, playerOneFirst);
+                        MakeMoves(dices, currentPlayer);
                     }
 
                     gameBoard.CheckForWinners();
@@ -66,20 +69,10 @@ namespace BackGammonApp
             }
         }
 
-        private void MakeDoubleMoves(int[] dices, bool playerOneFirst)
+        private void MakeDoubleMoves(int[] dices, BasePlayer player)
         {
             int row, col;
             bool legalMove;
-            BasePlayer player;
-
-            if (playerOneFirst)
-            {
-                player = playerOne;
-            }
-            else
-            {
-                player = playerTwo;
-            }
 
             do
             {
@@ -92,15 +85,7 @@ namespace BackGammonApp
             }
             while (!legalMove);
 
-            if (gameBoard.CheckIfPlayerCanStartClearing(player))
-            {
-                player.CanStartClearing();
-            }
-            else
-            {
-                player.StopClearing();
-            }
-
+            player.CheckAndSetIfCanStartClearing(gameBoard.Board);
             for (int i = 0; i < 3; i++)
             {
                 do
@@ -115,32 +100,15 @@ namespace BackGammonApp
                 }
                 while (!legalMove);
 
-                if (gameBoard.CheckIfPlayerCanStartClearing(player))
-                {
-                    player.CanStartClearing();
-                }
-                else
-                {
-                    player.StopClearing();
-                }
+                player.CheckAndSetIfCanStartClearing(gameBoard.Board);
             }
         }
 
-        private void MakeMoves(int[] dices, bool playerOneFirst)
+        private void MakeMoves(int[] dices, BasePlayer player)
         {
             int row, col;
             bool legalMove, firstDiceSelected;
-            BasePlayer player;
-
-            if(playerOneFirst)
-            {
-                player = playerOne;
-            }
-            else
-            {
-                player = playerTwo;
-            }
-
+            
             do
             {
                 firstDiceSelected = gameUI.WaitForPlayerMove(player, dices[0], dices[1], out row, out col);
@@ -160,40 +128,18 @@ namespace BackGammonApp
             }
             while (!legalMove);
 
-            if (gameBoard.CheckIfPlayerCanStartClearing(player))
-            {
-                player.CanStartClearing();
-            }
-            else
-            {
-                player.StopClearing();
-            }
-
+            player.CheckAndSetIfCanStartClearing(gameBoard.Board);
             gameUI.DrawBoard(gameBoard.Board, playerOne.EatenPieces, playerTwo.EatenPieces);
             do
             {
                 gameUI.WaitForPlayerMove(player, out row, out col);
-                if (playerOneFirst)
+                if (!firstDiceSelected)
                 {
-                    if (!firstDiceSelected)
-                    {
-                        legalMove = player.MakeMove(gameBoard.Board, dices[0], row, col);
-                    }
-                    else
-                    {
-                        legalMove = player.MakeMove(gameBoard.Board, dices[1], row, col);
-                    }
+                    legalMove = player.MakeMove(gameBoard.Board, dices[0], row, col);
                 }
                 else
                 {
-                    if (!firstDiceSelected)
-                    {
-                        legalMove = player.MakeMove(gameBoard.Board, dices[0], row, col);
-                    }
-                    else
-                    {
-                        legalMove = player.MakeMove(gameBoard.Board, dices[1], row, col);
-                    }
+                    legalMove = player.MakeMove(gameBoard.Board, dices[1], row, col);
                 }
 
                 if (!legalMove)
@@ -203,14 +149,7 @@ namespace BackGammonApp
             }
             while (!legalMove);
 
-            if (gameBoard.CheckIfPlayerCanStartClearing(player))
-            {
-                player.CanStartClearing();
-            }
-            else
-            {
-                player.StopClearing();
-            }
+            player.CheckAndSetIfCanStartClearing(gameBoard.Board);
         }
     }
 }
