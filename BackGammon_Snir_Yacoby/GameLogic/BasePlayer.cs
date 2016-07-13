@@ -268,7 +268,7 @@ namespace GameLogic
                 {
                     for (int j = 0; j < 12; j++)
                     {
-                        if (board[0, j].Count != 0 && board[0, j].Player.Type == player.Type)
+                        if (board[0, j].Count != 0 && board[0, j].Player.Type == Type)
                         {
                             AllPiecesInExtractionPoint = false;
                             break;
