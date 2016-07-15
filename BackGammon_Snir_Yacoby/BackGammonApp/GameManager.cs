@@ -59,6 +59,8 @@ namespace BackGammonApp
                 playerOneFirst = !playerOneFirst;
             }
 
+            gameUI.ClearScreen();
+            gameUI.DrawBoard(gameBoard.Board, playerOne.EatenPieces, playerTwo.EatenPieces);
             if (playerOne.CheckWinner())
             {
                 gameUI.PrintWinnerMessage(playerOne);

@@ -77,7 +77,7 @@ namespace GameLogic
             return dices;
         }
 
-        public abstract bool MakeMove(PieceOnBoard[,] board, int roll, int fromRow = 0, int fromCol = 0);
+        public abstract bool MakeMove(PieceOnBoard[,] board, int roll, int fromRow, int fromCol);
 
         protected void MovePiece(PieceOnBoard[,] board, int roll, int rowIndex, int colIndex)
         {
