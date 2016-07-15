@@ -13,7 +13,9 @@ namespace LINQ_to_Objects
         {
             var assembly = Assembly.GetAssembly(typeof(string));
             var interfacesNames = from x in assembly.GetTypes()
-                                  where x.IsInterface;
+                                  where x.IsInterface
+                                  orderby x.FullName
+                                  select x.FullName;
 
             foreach(string name in interfacesNames)
             {
