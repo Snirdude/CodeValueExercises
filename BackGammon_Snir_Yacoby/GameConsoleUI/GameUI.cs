@@ -15,7 +15,7 @@ namespace GameConsoleUI
         {
             int i = 0, j = 0;
             
-            Console.WriteLine("______________________________________");
+            Console.WriteLine("_________________Red__________________");
             Console.WriteLine(" 1  2  3  4  5  6    7  8  9  10 11 12");
             for (i = 1; i <= 5; i++)
             {
@@ -81,7 +81,8 @@ namespace GameConsoleUI
                 Console.WriteLine();
             }
             Console.WriteLine(" 1  2  3  4  5  6    7  8  9  10 11 12");
-            Console.WriteLine("______________________________________");
+            Console.WriteLine("_________________Blue_________________");
+            Console.WriteLine();
         }
 
         public void PrintWinnerMessage(BasePlayer player)
