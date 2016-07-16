@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="A.cs" />
+    <Compile Include="Analyzer.cs" />
     <Compile Include="B.cs" />
     <Compile Include="C.cs" />
     <Compile Include="CodeReviewAttribute.cs" />
