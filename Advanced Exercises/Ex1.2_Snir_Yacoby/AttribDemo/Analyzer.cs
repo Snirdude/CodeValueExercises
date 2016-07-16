@@ -11,7 +11,7 @@ namespace AttribDemo
     {
         public bool? AnalyzeAssembly(Assembly assembly)
         {
-            bool? isAllApproved = null;
+            bool? isAllApproved = null;s
             var allTypes = assembly?.GetTypes().Where(x => x.IsDefined(typeof(CodeReviewAttribute)));
 
             if (allTypes != null)
