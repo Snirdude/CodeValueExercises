@@ -11,8 +11,7 @@ namespace Personnel
     {
         static void Main(string[] args)
         {
-            Program p = new Program();
-            List<string> names = p.ReadStringsFromFile();
+            List<string> names = new Reader().ReadStringsFromFile();
 
             foreach(string name in names)
             {
@@ -21,23 +20,6 @@ namespace Personnel
                     Console.WriteLine("Name: " + name);
                 }
             }
-        }
-
-        List<string> ReadStringsFromFile()
-        {
-            FileStream fs = new FileStream("Names.txt", FileMode.Open, FileAccess.Read);
-            StreamReader reader = new StreamReader(fs);
-            List<string> answer = new List<string>();
-
-            while (!reader.EndOfStream)
-            {
-                answer.Add(reader.ReadLine());
-            }
-
-            reader.Close();
-            fs.Close();
-
-            return answer;
         }
     }
 }
