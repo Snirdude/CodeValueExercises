@@ -21,9 +21,19 @@ namespace DynInvoke
 
         static void InvokeHello(object obj, string str)
         {
-            object[] args = new string[1] { str };
-            string str2 = obj?.GetType().InvokeMember("Hello", BindingFlags.Public | BindingFlags.InvokeMethod | BindingFlags.Instance, null, obj, args).ToString();
-            Console.WriteLine(str2);
+            try
+            {
+                string str2 = obj?.GetType().InvokeMember("Hello", BindingFlags.Public | BindingFlags.InvokeMethod | BindingFlags.Instance, null, obj, new object[] { str }).ToString();
+                Console.WriteLine(str2);
+            }
+            catch (MissingMethodException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (TargetException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

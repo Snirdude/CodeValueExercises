@@ -11,31 +11,15 @@ namespace AttribDemo
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(new Program().AnalyzeAssembly(Assembly.GetExecutingAssembly()));
-        }
-
-        private bool AnalyzeAssembly(Assembly assembly)
-        {
-            bool isAllApproved = true;
-            var allTypes = assembly?.GetTypes().Where(x => x.IsDefined(typeof(CodeReviewAttribute)));
-
-            if(allTypes != null)
+            bool? isAllApproved = new Analyzer().AnalyzeAssembly(Assembly.GetExecutingAssembly());
+            if (isAllApproved != null)
             {
-                foreach (var type in allTypes)
-                {
-                    var attributes = type.GetCustomAttributes(typeof(CodeReviewAttribute));
-
-                    foreach (var attribute in attributes)
-                    {
-                        if (!(attribute as CodeReviewAttribute).Approved)
-                        {
-                            isAllApproved = false;
-                        }
-                    }
-                }
+                Console.WriteLine(isAllApproved);
             }
-
-            return isAllApproved;
+            else
+            {
+                Console.WriteLine("Error occured");
+            }
         }
     }
 }

@@ -143,11 +143,52 @@ namespace GameLogic
             isLegal = CheckPieceExists(board, rowIndex, colIndex);
             isLegal &= CheckPlayerMatch(board, rowIndex, colIndex);
             isLegal &= CheckValidTargetSpace(board, roll, rowIndex, colIndex);
+            if (ReadyToClear)
+            {
+                isLegal &= CheckValidBearOff(board, roll, rowIndex, colIndex);
+            }
 
             return isLegal;
         }
 
-        internal bool CheckValidTargetSpace(PieceOnBoard[,] board, int roll, int rowIndex, int colIndex)
+        private bool CheckValidBearOff(PieceOnBoard[,] board, int roll, int rowIndex, int colIndex)
+        {
+            bool isValid = true, areThereHigherPieces = false;
+            if (board[rowIndex, roll - 1].Count > 0)
+            {
+                isValid = colIndex == roll - 1;
+            }
+            else
+            {
+                for(int i = 5; i >= roll; i--)
+                {
+                    if(board[rowIndex, i].Count > 0)
+                    {
+                        areThereHigherPieces = true;
+                    }
+                }
+
+                if (areThereHigherPieces)
+                {
+                    isValid = colIndex <= 5 && colIndex >= roll;
+                }
+                else
+                {
+                    for(int i = roll - 2; i >= 0; i--)
+                    {
+                        if(board[rowIndex, i].Count > 0)
+                        {
+                            isValid = colIndex == i;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return isValid;
+        }
+
+        private bool CheckValidTargetSpace(PieceOnBoard[,] board, int roll, int rowIndex, int colIndex)
         {
             bool isValid, subValid;
             PieceOnBoard piece;
