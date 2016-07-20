@@ -26,7 +26,13 @@ namespace AttribDemo
                         if (!(attribute as CodeReviewAttribute).Approved)
                         {
                             isAllApproved = false;
+                            break;
                         }
+                    }
+
+                    if (isAllApproved == false)
+                    {
+                        break;
                     }
                 }
             }
