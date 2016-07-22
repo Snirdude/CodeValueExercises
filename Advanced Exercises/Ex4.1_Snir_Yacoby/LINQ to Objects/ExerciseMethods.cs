@@ -59,6 +59,7 @@ namespace LINQ_to_Objects
                 return true;
             }
         }
+
         public void PrintSystemThreads()
         {
             var totalThreads = Process.GetProcesses().Select(x => x.Threads.Count).Sum();
@@ -70,6 +71,7 @@ namespace LINQ_to_Objects
             A a = new A("Snir", 2015, 12.5);
             B b = new B("Ronen", 2016, 'A');
             b.CopyTo(a);
+            ObjectExtensions.CopyTo(a, b);
             Console.WriteLine($"b copied to a :{a.Name} {a.Id} {a.Balance}");
             a = new A("Snir", 2015, 12.5);
             a.CopyTo(b);
