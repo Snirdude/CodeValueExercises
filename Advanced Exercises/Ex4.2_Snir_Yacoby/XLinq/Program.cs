@@ -14,8 +14,12 @@ namespace XLinq
         static void Main(string[] args)
         {
             Helper helper = new Helper();
-            var document = helper.CreateXML();
-            helper.B(document);
+            //var document = helper.CreateXML();
+            //helper.A(document);
+            //helper.B(document);
+            //helper.C(document);
+            //helper.D(document);
+            //helper.E(document);
         }
     }
 }

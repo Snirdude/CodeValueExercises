@@ -20,7 +20,7 @@ namespace XLinq
             foreach (var c in classes)
             {
                 var properties = c.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-                var methods = c.GetMethods(BindingFlags.Public | BindingFlags.Instance);
+                var methods = c.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
                 var typeElement = new XElement("Type", new XAttribute("Fullname", c.FullName));
                 var propertiesElement = new XElement("Properties");
                 var methodsElement = new XElement("Methods");
@@ -32,11 +32,6 @@ namespace XLinq
                 typeElement.Add(propertiesElement);
                 foreach (var method in methods)
                 {
-                    if (c.GetMethods(BindingFlags.DeclaredOnly).Contains(method))
-                    {
-                        continue;
-                    }
-
                     var parameters = method.GetParameters();
                     var parametersElement = new XElement("Parameters");
                     var methodElement = new XElement("Method", new XAttribute("Name", method.Name), new XAttribute("ReturnType", method.ReturnType));
@@ -78,9 +73,59 @@ namespace XLinq
         public void C(XDocument document)
         {
             var propertiesCount = document.Descendants("Property").Count();
-            Dictionary<string, int> dictionary = new Dictionary<string, int>();
-            var propertyGroup = from p in document.Descendants("Parameter")
-                                group p by p.Attribute("Type");
+            var types = from p in document.Descendants("Parameter")
+                        group p by p.Attribute("Type").Value
+                                into propertyTypes
+                        orderby propertyTypes.Count() descending
+                        select new
+                        {
+                            Name = propertyTypes.Key,
+                            Count = propertyTypes.Count()
+                        };
+
+            Console.WriteLine($"Properties count is {propertiesCount}");
+            Console.WriteLine($"Most common type is {types.First().Name}, count is {types.First().Count}");
+        }
+
+        public void D(XDocument document)
+        {
+            XDocument newDocument = new XDocument();
+            XElement root = new XElement("Types");
+            var types = from t in document.Descendants("Type")
+                        orderby t.Descendants("Method").Count() descending
+                        select new
+                        {
+                            Name = t.Attribute("Fullname").Value,
+                            PropertiesNum = t.Descendants("Property").Count(),
+                            MethodsNum = t.Descendants("Method").Count()
+                        };
+            foreach(var type in types)
+            {
+                var typeElement = new XElement("Type", new XElement("Fullname", type.Name), new XElement("PropertiesCount", type.PropertiesNum), new XElement("MethodsCount", type.MethodsNum));
+                root.Add(typeElement);
+            }
+
+            newDocument.Add(root);
+            newDocument.Save("Types.xml");
+        }
+
+        public void E(XDocument document)
+        {
+            var types = from t in document.Descendants("Type")
+                        orderby t.Descendants("Method").Count() descending
+                        group t by t.Descendants("Method").Count()
+                        into g
+                        orderby g.Descendants("Method").Count() descending
+                        select g;
+
+            foreach(var grouping in types)
+            {
+                var orderedGrouping = grouping.OrderBy(x => x.Attribute("Fullname").Value);
+                foreach (var type in orderedGrouping)
+                {
+                    Console.WriteLine(type);
+                }
+            }
         }
     }
 }
