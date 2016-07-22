@@ -87,6 +87,7 @@
             this.listBoxPrimeNumbers.Name = "listBoxPrimeNumbers";
             this.listBoxPrimeNumbers.Size = new System.Drawing.Size(140, 186);
             this.listBoxPrimeNumbers.TabIndex = 5;
+            this.listBoxPrimeNumbers.SelectedIndexChanged += new System.EventHandler(this.listBoxPrimeNumbers_SelectedIndexChanged);
             // 
             // Form
             // 

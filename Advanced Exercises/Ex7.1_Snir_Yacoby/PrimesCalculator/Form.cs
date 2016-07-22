@@ -35,29 +35,30 @@ namespace PrimesCalculator
             isValidInput &= int.TryParse((textBoxMaxRange as TextBox).Text, out max);
             isValidInput &= min >= 2 && min <= max;
             List<int> primes = new List<int>();
+            var synchronizationContext = SynchronizationContext.Current;
 
             if (isValidInput)
             {
-                for(int i = min; i <= max; i++)
+                Task.Run(() =>
                 {
-                    bool isPrime = true;
-                    for (int j = 2; j < i; j++)
+                    for (int i = min; i <= max; i++)
                     {
-                        if (i % j == 0)
+                        bool isPrime = true;
+                        for (int j = 2; j < i; j++)
                         {
-                            isPrime = false;
+                            if (i % j == 0)
+                            {
+                                isPrime = false;
+                            }
+                        }
+
+                        if (isPrime)
+                        {
+                            primes.Add(i);
                         }
                     }
 
-                    if(isPrime)
-                    {
-                        primes.Add(i);
-                    }
-                }
-
-                Task.Run(() =>
-                {
-                    WindowsFormsSynchronizationContext.Current.Send(o =>
+                    synchronizationContext.Send(o =>
                     {
                         listBoxPrimeNumbers.DataSource = primes;
                     }, null);
@@ -67,6 +68,11 @@ namespace PrimesCalculator
             {
                 MessageBox.Show("Invalid inputs! Minimum range must be at least 2");
             }
+        }
+
+        private void listBoxPrimeNumbers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
