@@ -13,43 +13,38 @@ namespace LINQ_to_Objects
     {
         static void Main(string[] args)
         {
-            A a = new A("Snir", 2015, 12.5);
-            B b = new B("Ronen", 2016, 'A');
-            b.CopyTo(a);
-            Console.WriteLine($"{a.Name} {a.Id} {a.Balance}");
-        }
+            ExerciseMethods em = new ExerciseMethods();
+            int choice;
 
-        private void PrintMscorlibInterfaces()
-        {
-            var assembly = Assembly.GetAssembly(typeof(string));
-            var interfaces = from x in assembly.GetTypes()
-                                  where x.IsInterface
-                                  orderby x.Name
-                                  select new { x.Name, x.GetMethods().Length };
-
-            foreach (var interfacee in interfaces)
+            do
             {
-                Console.WriteLine($"Interface Name: {interfacee.Name}, Number of methods: {interfacee.Length}");
-            }
-        }
-
-        private void PrintProcesses()
-        {
-            var processes = Process.GetProcesses().Where(x => x.Threads.Count < 5).OrderBy(x => x.Id)
-                .GroupBy(x => x.BasePriority);
-            foreach(var processGroup in processes)
-            {
-                foreach (var process in processGroup)
+                Console.WriteLine("1. Print Mscorlib exercises\n2. Print Processes\n3. Print System Threads\n4. Test method CopyTo\n0. Exit");
+                var input = Console.ReadLine();
+                if (int.TryParse(input, out choice))
                 {
-                    Console.WriteLine($"Process name: {process.ProcessName}, Process id: {process.Id}");
+                    switch (choice)
+                    {
+                        case 1:
+                            em.PrintMscorlibInterfaces();
+                            break;
+                        case 2:
+                            em.PrintProcesses();
+                            break;
+                        case 3:
+                            em.PrintSystemThreads();
+                            break;
+                        case 4:
+                            em.CopyToTest();
+                            break;
+                        case 0:
+                            Console.WriteLine("Goodbye");
+                            break;
+                        default:
+                            Console.WriteLine("Invalid input");
+                            break;
+                    }
                 }
-            }
-        }
-
-        private void PrintSystemThreads()
-        {
-            var totalThreads = Process.GetProcesses().Select(x => x.Threads.Count).Sum();
-            Console.WriteLine($"Total threads: {totalThreads}");
-        }
+            } while (choice != 0);
+        }  
     }
 }

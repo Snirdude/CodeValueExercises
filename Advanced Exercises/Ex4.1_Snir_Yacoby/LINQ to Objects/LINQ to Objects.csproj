@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="A.cs" />
     <Compile Include="B.cs" />
+    <Compile Include="ExerciseMethods.cs" />
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -11,8 +11,8 @@ namespace LINQ_to_Objects
     {
         public static void CopyTo(this object source, object destination)
         {
-            var srcProperties = source.GetType().GetProperties().Where(x => x.CanRead);
-            var dstProperties = destination.GetType().GetProperties().Where(x => x.CanWrite);
+            var srcProperties = source.GetType().GetProperties().Where(x => x.CanRead && x.GetMethod.IsPublic);
+            var dstProperties = destination.GetType().GetProperties().Where(x => x.CanWrite && x.SetMethod.IsPublic);
 
             foreach(var property in dstProperties)
             {
