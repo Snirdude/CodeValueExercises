@@ -39,6 +39,7 @@ namespace PrimesCalculator
             isValidInput &= int.TryParse((textBoxMaxRange as TextBox).Text, out max);
             isValidInput &= min >= 2 && min <= max;
             List<int> primes = new List<int>();
+            var synchronizationContext = SynchronizationContext.Current;
 
             if (isValidInput)
             {
@@ -61,12 +62,11 @@ namespace PrimesCalculator
                         }
                     }
 
-                    WindowsFormsSynchronizationContext.Current.Send(o =>
+                    synchronizationContext.Send(o =>
                     {
                         listBoxPrimeNumbers.DataSource = primes;
                     }, null);
-                    MessageBox.Show($"{cancellationToken}");
-                });
+                }, cancellationToken);
             }
             else
             {
