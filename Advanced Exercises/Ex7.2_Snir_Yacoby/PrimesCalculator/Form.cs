@@ -18,7 +18,6 @@ namespace PrimesCalculator
 
         public Form()
         {
-            cancellationToken = cancellationTokenSource.Token;
             InitializeComponent();
         }
 
@@ -34,21 +33,24 @@ namespace PrimesCalculator
 
         private void buttonCalculate_Click(object sender, EventArgs e)
         {
-            int min, max;
-            bool isValidInput = int.TryParse((textBoxMinRange as TextBox).Text, out min);
-            isValidInput &= int.TryParse((textBoxMaxRange as TextBox).Text, out max);
+            long min, max;
+            bool isValidInput = long.TryParse((textBoxMinRange as TextBox).Text, out min);
+            isValidInput &= long.TryParse((textBoxMaxRange as TextBox).Text, out max);
             isValidInput &= min >= 2 && min <= max;
-            List<int> primes = new List<int>();
+            List<long> primes = new List<long>();
             var synchronizationContext = SynchronizationContext.Current;
+            cancellationTokenSource = new CancellationTokenSource();
+            cancellationToken = cancellationTokenSource.Token;
 
             if (isValidInput)
             {
                 Task.Run(() =>
                 {
-                    for (int i = min; i <= max; i++)
+                    for (long i = min; i <= max; i++)
                     {
+                        cancellationToken.ThrowIfCancellationRequested();
                         bool isPrime = true;
-                        for (int j = 2; j < i; j++)
+                        for (long j = 2; j < i; j++)
                         {
                             if (i % j == 0)
                             {
@@ -66,7 +68,7 @@ namespace PrimesCalculator
                     {
                         listBoxPrimeNumbers.DataSource = primes;
                     }, null);
-                }, cancellationToken);
+                });
             }
             else
             {
