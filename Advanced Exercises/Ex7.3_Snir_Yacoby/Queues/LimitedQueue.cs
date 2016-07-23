@@ -9,7 +9,7 @@ namespace Queues
 {
     class LimitedQueue<T>
     {
-        private Queue<T> queue;
+        private Queue<T> queue = new Queue<T>();
         private SemaphoreSlim semaphore;
 
         public LimitedQueue(int limit)
@@ -21,14 +21,19 @@ namespace Queues
         {
             semaphore.Wait();
             queue.Enqueue(item);
-            semaphore.Release();
         }
 
         public T Dequeue()
         {
-            semaphore.Wait();
-            return queue.Dequeue();
+            T item = default(T);
+            if(queue.Count > 0)
+            {
+                item = queue.Dequeue();
+            }
+
             semaphore.Release();
+
+            return item;
         }
     }
 }
