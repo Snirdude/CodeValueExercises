@@ -15,6 +15,7 @@ namespace PrimesCalculator
     {
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private CancellationToken cancellationToken;
+        private AutoResetEvent autoResetEvent = new AutoResetEvent(false);
 
         public Form()
         {
@@ -48,7 +49,16 @@ namespace PrimesCalculator
                 {
                     for (long i = min; i <= max; i++)
                     {
-                        cancellationToken.ThrowIfCancellationRequested();
+                        /*bool isSignaled = autoResetEvent.WaitOne(0);
+                        if (isSignaled)
+                        {
+                            return;
+                        }*/
+
+                        if (cancellationToken.IsCancellationRequested)
+                        {
+                            return;
+                        }
                         bool isPrime = true;
                         for (long j = 2; j < i; j++)
                         {
@@ -78,6 +88,7 @@ namespace PrimesCalculator
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
+            //autoResetEvent.Set();
             cancellationTokenSource.Cancel();
         }
     }
